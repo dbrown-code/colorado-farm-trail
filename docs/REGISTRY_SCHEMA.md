@@ -7,22 +7,25 @@
 ## Model in one picture
 
 ```
-producer 1 ──< presence >── 1 place
+producer 1 ──< presence >── 1 place ── county (FIPS)
    │                          │
-   ├──< source_link           └── county (FIPS)
-   ├──< field_source
-   └──< service_area (derived from presences, or set by hand)
+   └──< market_vendor >── 1 market ──┘ (each market has one place)
+   ├──< service_area (derived from presences and markets, or set by hand)
+   └──< source_link / field_source (for producers and markets)
 ```
 
 - **producer**: one record per producer. This is the unit behind a producer homepage.
-- **place**: a physical location with coordinates (a farm, a stand, a market, a store).
-- **presence**: how a producer relates to a place (home base, sells at a market, stocked at a store).
-- **service_area**: counties where a producer can be found. Derived from presences, or set by hand
-  for producers who deliver or ship.
+- **market**: a recurring multi-vendor gathering. Not a producer: it is its own record type, tied
+  to one place, with its own hours, season and programs.
+- **place**: a physical location with coordinates (a farm, a stand, a market site, a store).
+- **presence**: how a producer relates to a place (home base, stocked at a store, CSA drop-off).
+- **market_vendor**: a producer selling at a market in a given year.
+- **service_area**: counties where a producer can be found. Derived from presences and market
+  participation, or set by hand for producers who deliver or ship.
 - **source_link / field_source**: where each record and each field came from, and when it was checked.
 
 A producer with no place at all (online or wholesale only) is valid. A producer whose only
-presences are four markets is valid.
+connections are four markets is valid.
 
 ## Field classes
 
@@ -38,7 +41,8 @@ Every field has a class that decides whether it appears in the public release.
 
 ## Identifiers
 
-- IDs are stable, never reused, and namespaced: `co-p-000123` (producer), `co-pl-000456` (place).
+- IDs are stable, never reused, and namespaced: `co-p-000123` (producer), `co-m-000789` (market),
+  `co-pl-000456` (place).
 - Slugs (`aspen-moon-farm`, with `-2` on collisions) are separate from IDs and may change; the ID may not.
 - Merged duplicates keep a redirect in `id_aliases` so old IDs still resolve.
 
@@ -49,7 +53,7 @@ Every field has a class that decides whether it appears in the public release.
 | `producer_id` | string | fact | Required. Primary key |
 | `slug` | string | fact | Homepage path |
 | `name` | string | fact | Required. Business name |
-| `kind` | enum | controlled | `farm`, `ranch`, `orchard`, `maker`, `winery`, `market`, `food_hub`, `retailer`, `organization`. A farmers' market is a recurring multi-vendor gathering (see `farmers-market-definition`) |
+| `kind` | enum | controlled | `farm`, `ranch`, `orchard`, `maker`, `winery`. Markets are not producers (see `markets`). Food hubs, retailers and organizations are not decided yet (see open questions) |
 | `categories` | list | controlled | From the category vocabulary below. Primary first |
 | `products` | list | controlled | From the product vocabulary |
 | `seasonal_months` | list | fact | Months operating, 1–12. Empty if unknown |
@@ -76,7 +80,7 @@ Every field has a class that decides whether it appears in the public release.
 |---|---|---|---|
 | `place_id` | string | fact | Required |
 | `name` | string | fact | Place name if different from the producer |
-| `kind` | enum | controlled | `home_base`, `farm_stand`, `market`, `store`, `pickup_point`, `other` |
+| `kind` | enum | controlled | `home_base`, `farm_stand`, `market_site`, `store`, `pickup_point`, `other` |
 | `address`, `city`, `zip` | string | fact/personal | Honors `hide_address` |
 | `hide_address` | bool | fact | When true, public release keeps city and county only, and coordinates are rounded to the town |
 | `state` | string | fact | `CO`. A field, not a constant |
@@ -93,11 +97,41 @@ Every field has a class that decides whether it appears in the public release.
 | `presence_id` | string | fact | Primary key |
 | `producer_id` | string | fact | FK |
 | `place_id` | string | fact | FK |
-| `role` | enum | controlled | `home_base`, `sells_at`, `stocked_at`, `csa_dropoff`, `pickup` |
+| `role` | enum | controlled | `home_base`, `farm_stand`, `stocked_at`, `csa_dropoff`, `pickup`. Market participation is in `market_vendors`, not here |
 | `days`, `hours_text` | list/string | fact | When they are at that place |
-| `season_start`, `season_end` | date/month | fact | Months or dates, per year |
-| `year` | integer | fact | Market vendor lists change yearly. Blank for ongoing |
+| `season_start`, `season_end` | date/month | fact | Months or dates |
 | `status` | enum | fact | `confirmed`, `listed`, `unverified` |
+
+## Table: `markets`
+
+A recurring gathering where several vendors sell at a fixed place. A market has exactly one place;
+a market that moves between sites is one record per site, linked by `network_name`.
+
+| Field | Type | Class | Notes |
+|---|---|---|---|
+| `market_id` | string | fact | Required. Primary key |
+| `slug` | string | fact | Page path |
+| `name` | string | fact | Required |
+| `place_id` | string | fact | FK. Required |
+| `operator` | string | fact | Organization that runs it |
+| `network_name` | string | fact | For markets run as a series at several sites |
+| `days`, `season_start`, `season_end` | list/date | fact | When it runs |
+| `hours_structured`, `hours_text` | list/string | fact | As for producers |
+| `website`, `phone`, `email`, `facebook`, `instagram` | string | fact/personal | Public contact for the market |
+| `accepts_snap`, `double_up`, `accepts_wic`, `ada_accessible` | bool/null | fact | Null = unknown |
+| `status` | enum | fact | `active`, `seasonal_closed`, `closed`, `unverified` |
+| `first_seen`, `last_verified` | date | fact | |
+
+## Table: `market_vendors`
+
+| Field | Type | Class | Notes |
+|---|---|---|---|
+| `market_id` | string | fact | FK |
+| `producer_id` | string | fact | FK |
+| `year` | integer | fact | Vendor lists change yearly. Required |
+| `days`, `season_start`, `season_end` | list/date | fact | If narrower than the market's own |
+| `status` | enum | fact | `confirmed`, `listed`, `unverified` |
+| `list_source` | string | fact | Which vendor list said so |
 
 ## Table: `service_areas`
 
@@ -105,7 +139,7 @@ Every field has a class that decides whether it appears in the public release.
 |---|---|---|---|
 | `producer_id` | string | fact | FK |
 | `county_fips` | string | fact | |
-| `basis` | enum | fact | `home_base`, `market`, `store`, `delivery`, `manual` |
+| `basis` | enum | fact | `home_base`, `market`, `store`, `delivery`, `manual` (`market` comes from `market_vendors` through the market's place) |
 | `derived` | bool | fact | True when computed from presences. Rebuilt on every release |
 
 A county filter matches a producer when any `service_areas` row for that county exists.
@@ -113,11 +147,12 @@ Apps may label `home_base` as "Grows here" and the other bases as "Sells here".
 
 ## Table: `source_links`
 
-Per producer, links to the original listings. Apps may pull display content from these links.
+Per producer or market, links to the original listings. Apps may pull display content from these links.
 
 | Field | Type | Class | Notes |
 |---|---|---|---|
-| `producer_id` | string | fact | FK |
+| `record_type` | enum | fact | `producer`, `market` |
+| `record_id` | string | fact | FK |
 | `source` | string | fact | `producer_site`, `usda_lfd`, `colorado_proud`, `cfma`, `chaffee_provides`, … |
 | `url` | url | fact | The listing page |
 | `source_record_id` | string | fact | Stable ID at the source, for change detection |
@@ -130,7 +165,7 @@ Provenance for each populated field. Attribution for the public release is built
 
 | Field | Type | Notes |
 |---|---|---|
-| `record_type` | enum | `producer`, `place`, `presence` |
+| `record_type` | enum | `producer`, `market`, `place`, `presence`, `market_vendor` |
 | `record_id` | string | |
 | `field` | string | e.g. `phone` |
 | `source` | string | Source name |
@@ -151,7 +186,8 @@ Provenance for each populated field. Attribution for the public release is built
 
 ## What a producer homepage reads
 
-One producer row, its places via presences (home base pin, plus market pins), service areas for
+One producer row, its places via presences (home base pin), its markets via `market_vendors`
+(market pins), service areas for
 the county list, `source_links` for the "More from the source" links, and `google_place_id` for
 the Maps directions link and optional live photos.
 
@@ -166,21 +202,25 @@ as ID only.
 | Today (Phase 2 raw CSV) | Becomes |
 |---|---|
 | Business Name, Category, Phone, Website, Email, Facebook, Instagram, Hours, Months Open, Products, Certified Organic, SNAP, ADA Accessible, Call first? | `producers` |
-| Address, City, Zip, County, Latitude, Longitude, Geo Source | `places` (kind `home_base`, or `market` for market records) |
+| Address, City, Zip, County, Latitude, Longitude, Geo Source | `places` (kind `home_base`, or `market_site` for a market's place) |
+| Records categorized "Farmers' Market" | `markets` (not `producers`), each with its `place_id` |
 | Where to Get It | `presences` (`stocked_at`) once the named stores are resolved to places |
-| Market vendor lists (Phase 3 prospects) | `presences` (`sells_at`, with `year`) |
+| Market vendor lists (Phase 3 prospects) | `market_vendors` (with `year`) |
 | Notes | Dropped from the public release; the link goes in `source_links` |
 | Source, Source ID, Source Updated, Provenance | `source_links`, `field_sources` |
 | Possible Dup Of, dedup decisions | Merge decisions and `id_aliases` |
 
 ## Open questions
 
-1. **Are markets producers?** The draft treats a market as a `producers` row with `kind = market`,
-   so it can have its own contact, hours and SNAP data, and vendors link to its place. The
-   alternative is a separate `markets` table. Which feels right?
+1. **Other entities that are not producers.** Markets now have their own table. Food hubs, food banks,
+   restaurants and similar organizations also are not producers. Options: a general `organizations`
+   table for them, place-only records for stores and restaurants, or leaving them out of the first
+   release. Which belong in scope for v1?
 2. **Hours:** how much of the existing free-text hours can be structured automatically versus
    left in `hours_text`?
 3. **Producer-submitted fields:** which ones can a claimed producer edit directly (description,
    photo, hours) versus only propose changes to?
 4. **Multiple home bases:** a producer with two farms gets two `home_base` presences. Is that fine, or
    should one be primary?
+5. **Merged duplicates:** define an `id_aliases` table (`old_id`, `new_id`, `merged_on`) and the
+   convention for multi-value fields in CSV (`;`-separated, with hours in their own table).
