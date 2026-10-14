@@ -1,4 +1,4 @@
-# Colorado Open Producer Registry — Schema (DRAFT v0.1)
+# Colorado Open Food Web — Schema (DRAFT v0.1)
 
 > Draft for maintainer review. Follows [`CORE_PROJECT_CHARTER.md`](CORE_PROJECT_CHARTER.md).
 > Canonical form is plain CSV tables; JSON, GeoJSON and SQLite are built from them.
@@ -140,7 +140,7 @@ a market that moves between sites is one record per site, linked by `network_nam
 ## Table: `outlets`
 
 A restaurant, caterer, grocer, farm store or garden center. Thin on purpose: identity, location and
-a link to where the business describes itself. The Registry holds no menus, prices or descriptions.
+a link to where the business describes itself. The Food Web holds no menus, prices or descriptions.
 One record per location; chains share a `brand`.
 
 | Field | Type | Class | Notes |
@@ -158,7 +158,7 @@ One record per location; chains share a `brand`.
 
 ## Table: `outlet_suppliers`
 
-The most perishable data in the Registry: who buys from whom changes with menus and seasons.
+The most perishable data in the Food Web: who buys from whom changes with menus and seasons.
 
 | Field | Type | Class | Notes |
 |---|---|---|---|

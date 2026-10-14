@@ -1,16 +1,29 @@
-# Colorado Open Producer Registry — Project Charter (DRAFT)
+# Colorado Open Food Web — Project Charter (DRAFT)
 
-> Working name. Status: draft for maintainer review. Nothing here is published.
+> Name: Colorado Open Food Web (chosen 2026-10-14; domain and trademark not yet checked).
+> Status: draft for maintainer review. Nothing here is published.
 > Licensing and partner agreements are deliberately deferred (see "Not yet").
 
 ## What it is
 
-**Colorado Open Producer Registry** is a free, open, community-maintained dataset of the people who
-produce food in Colorado, and of the places and markets where that food can be found.
+**Colorado Open Food Web** is a free, open, community-maintained dataset of how Colorado's food
+connects: the people who produce it, the markets, restaurants and stores where it is sold or served,
+and the places and counties in between.
 
-The unit of the dataset is the **producer**: one producer, one record, one stable page.
-Everything else (a farm location, a farmers' market, a store that stocks them, a county they
-serve) is linked to the producer rather than being a separate listing.
+The core unit is the **producer**: one producer, one record, one stable page. Markets and outlets
+(restaurants, grocers, farm stores) are their own record types. Places, and the links between all
+of them, are what make it a web rather than a list.
+
+### Why "food web"
+
+Two meanings, both intended:
+
+- **The ecological one.** A food web maps who feeds whom. The dataset does the same for a local
+  food system: producers supply markets and outlets, markets and outlets reach counties.
+- **The internet one.** It is built mainly by gathering what is already published on the web
+  (state and federal directories, market and association sites, producers' own pages), linking it
+  together, and showing it in new ways. Records point back to those sources rather than copying
+  them.
 
 ## Why it exists
 
@@ -19,7 +32,7 @@ directories, market associations, county nonprofits, and individual websites. Ea
 piece, none agrees with the others, and each goes stale on its own schedule. Every app that
 wants to help someone find local food has to rebuild the same list from scratch.
 
-The Registry exists so that list is built once, kept accurate in the open, and shared.
+The Food Web exists so that list is built once, kept accurate in the open, and shared.
 
 ## What it seeks to create
 
@@ -40,10 +53,10 @@ The Registry exists so that list is built once, kept accurate in the open, and s
 - **Producer-centered.** Producers can see, claim, correct, or remove their record.
 - **Provenance over volume.** A field is filled only when a source states it. Nothing is
   guessed. Every field carries its source and verification date.
-- **Neutral and unbranded.** The Registry is infrastructure, not a consumer brand. It does not
+- **Neutral and unbranded.** The Food Web is infrastructure, not a consumer brand. It does not
   rank, promote, or editorialize.
 - **Separate from the apps.** The data is maintained independently of any product built on it.
-- **Clean content.** The Registry contains no copyrighted text and no personal information
+- **Clean content.** The Food Web contains no copyrighted text and no personal information
   beyond what a business has itself made public for customers (see "Release design").
 - **Partners over scraping.** Where a source can become a partner, it should.
 
@@ -67,23 +80,23 @@ The Registry exists so that list is built once, kept accurate in the open, and s
 
 ## Release design: facts only, sourced, linked
 
-The public Registry publishes **facts, not other people's prose**.
+The public Food Web publishes **facts, not other people's prose**.
 
 - **Published core:** name, location (address, coordinates, county), contact (phone, email,
   website, social links), categories, products and seasons as structured values, stable IDs,
   and sources.
 - **Kept out:** descriptions, blurbs and "about" text copied from a directory or a producer's
   website. The record links to the original instead. Text the project writes itself, or text a
-  producer submits to the Registry, may be included.
+  producer submits to the Food Web, may be included.
 - **Attribution:** every field records its source in the provenance data, and each release
   lists its sources.
 - **Apps may pull from the links:** every record carries links to its original sources (the
   producer's own site, the directory listing). An app such as the Farm Trail may fetch and
   display content from those links, with attribution, if it wishes. That is the app's decision
-  and responsibility under the source's terms, not the Registry's.
+  and responsibility under the source's terms, not the Food Web's.
 
 **Personal information.** Many producers are sole proprietors whose farm is also their home.
-The Registry publishes only contact details the business itself publishes for customers
+The Food Web publishes only contact details the business itself publishes for customers
 (its website, public phone, public email, public address). It does not publish home addresses
 a producer has chosen to hide (a source's "hide address" flag is honored and carried through),
 personal social profiles, names of individuals beyond the business name, or anything gathered
@@ -96,7 +109,7 @@ never a copied paragraph.
 
 ## Photos
 
-The Registry holds **no third-party photos**. For a place it stores only the `google_place_id`
+The Food Web holds **no third-party photos**. For a place it stores only the `google_place_id`
 (which Google permits) and, where a producer submits their own photo, the image link with
 `photo_credit` and `photo_license`.
 
@@ -113,9 +126,9 @@ per request, so cost grows with page views.
 
 ## Relationship to the Colorado Farm Trail
 
-The Farm Trail is the first and reference consumer. It reads the Registry and adds the
+The Farm Trail is the first and reference consumer. It reads the Food Web and adds the
 experience layer: the map, producer homepages, county pages, Google Maps directions, the food
-guide, the CSA finder. Anything about *what is true of a producer* lives in the Registry;
+guide, the CSA finder. Anything about *what is true of a producer* lives in the Food Web;
 anything about *how it is shown or used* lives in the app.
 
 ## Who it serves
@@ -128,12 +141,12 @@ anything about *how it is shown or used* lives in the app.
 
 ## Scope: Colorado first, a base model for the rest
 
-The Registry covers **Colorado only**. A statewide dataset is the right size to get accurate,
+The Food Web covers **Colorado only**. A statewide dataset is the right size to get accurate,
 and it lets us prove the model with real partners before anyone asks for more.
 
 If it works, the national step is a **spin-off, not an expansion**: a separate, state-agnostic
-**Open Producer Registry** (working name) that uses the Colorado Open Producer Registry as its
-base model. Colorado stays its own registry with its own partners and maintainers; other states
+**Open Food Web** (working name) that uses the Colorado Open Food Web as its
+base model. Colorado stays its own dataset with its own partners and maintainers; other states
 would run their own on the same model.
 
 What this asks of the design now, at almost no cost:
@@ -148,7 +161,7 @@ What this asks of the design now, at almost no cost:
 - **The tooling is reusable**: the merge pipeline reads source definitions, so a new state is new
   source configs, not new code.
 
-We do not build any multi-state features until the Colorado Registry is working.
+We do not build any multi-state features until the Colorado Open Food Web is working.
 
 ## License
 
@@ -160,7 +173,7 @@ We do not build any multi-state features until the Colorado Registry is working.
 - It is compatible with upstream CC BY data (the USDA farmers market directory is listed under
   CC BY). CC0 would not be, since CC BY material cannot be relicensed as CC0.
 - Version 4.0 covers database rights, so no separate database license is needed.
-- The license covers only what the Registry contributes. Third-party content keeps its own
+- The license covers only what the Food Web contributes. Third-party content keeps its own
   terms, which is why the release is facts only.
 - Contributors agree at the point of contribution: "By contributing, you confirm the facts are
   yours to share and agree they are released under CC BY 4.0, with credit to you as a named
@@ -172,7 +185,7 @@ terms table).
 ## Prior art
 
 A first search (October 2026, from search summaries, not a full review) found no open,
-community-maintained, producer-level registry with partner-maintained, per-field provenance.
+community-maintained, producer-level dataset with partner-maintained, per-field provenance.
 
 - **Federal:** USDA AMS Local Food Directories (farmers markets, CSAs, on-farm markets, food
   hubs, agritourism), with an API and a CC BY listing on data.gov. Self-reported, goes stale,
@@ -215,5 +228,4 @@ Deliberately postponed until the foundation is set:
 
 ## Open questions
 
-- Final name (current working name: Colorado Open Producer Registry).
 - Where does the organization live (GitHub org name, domain)?
