@@ -38,6 +38,18 @@ a low-weight weekly check.
 - Result: `data/markets.json` has 138 website / 89 Facebook / 96 Instagram links,
   all well-formed.
 
+## Phase 2 sweep *(2026-10-14)*
+
+- Ran `check_links.py` on the Phase 2 dataset (2,209 link cells): 1,272 OK, 838 uncertain,
+  79 broken, 20 suspect.
+- Fixes go in `source-data/phase2/overrides.csv` (not `--apply`), so they survive pipeline
+  rebuilds: 74 `clear` rows (62 dead websites, 7 hijacked or parked domains, 5 bad social
+  cells) and 12 `set` rows (malformed social values repaired, e.g. `https://https://...`
+  and bare handles). Handles repaired from bare text are unverified, since Facebook and
+  Instagram block checks.
+- `data-compiled/phase2/link_review.csv` lists 13 suspect redirects for a human decision
+  (rebrands, acquisitions, hosted-store redirects).
+
 ## Known limitation — Facebook & Instagram can't be reliably validated
 
 Facebook and Instagram **block automated requests** (HTTP 400/403/429 or a login
