@@ -196,3 +196,65 @@ Colorado Farm to Table,Salida,Address,set,7750 County Road 150,"Farm location as
 Vail Farmers' Market,Vail,Hours,set,Sun: 9:30am - 3:00pm (Jun 14 - Oct 4); Thu: 1:00pm - 5:30pm (Jun 18 - Sep 17),"Season dates from vailfarmersmarket.com vendor pages: Sunday market June 14 - October 4, 2026; Thursday Meadow Market June 18 - September 17, 2026 (its blurb says Sept 4; the event listing says Sept 17) (checked 2026-10-04)",2026-10-04
 High On The Hill Farm,Cañon City,Notes,set,"High On the Hill Farm is a small, all natural fruit, vegetable, culinary herb and medicinal herb farm and is the home of The Anāhata Yoga & Meditation Center.  We offer wellness counseling utilizing mindful presence, a fresh, high nutrient density plant based diet and Ashtanga Yoga.  see our website for more info",Source text lost a character (garbled 'Anāhata'); same text with the yoga studio's name restored,2026-10-04
 Caring & Sharing – Sanctuary Soup Kitchen,,Address,set,220 W 4th St,"Chaffee Provides' map lists 220 W 4th St (shared with the Chaffee Community Resource Center, now a separate listing)",2026-10-05
+Green Mountain Ranch,,Latitude,set,38.93454,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Green Mountain Ranch,,Longitude,set,-105.01715,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Happy Day Ranch,Basalt,Latitude,set,39.36887,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Happy Day Ranch,Basalt,Longitude,set,-107.03282,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Homegrown Farm,Bayfield,Latitude,set,37.22556,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Homegrown Farm,Bayfield,Longitude,set,-107.59811,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Golden Hollow Farms,Berthoud,Latitude,set,40.30832,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Golden Hollow Farms,Berthoud,Longitude,set,-105.08109,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Miraflora Farm,Boulder,Latitude,set,40.01499,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Miraflora Farm,Boulder,Longitude,set,-105.27054,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Veggiescapes,Boulder,Latitude,set,40.11616,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Veggiescapes,Boulder,Longitude,set,-105.16190,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Sun Catcher Farms Ldt.,Brighton,Latitude,set,39.98372,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Sun Catcher Farms Ldt.,Brighton,Longitude,set,-104.81108,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+SongHaven Farm,Cahone,Latitude,set,37.65888,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+SongHaven Farm,Cahone,Longitude,set,-108.80788,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Dooley Creek Farm,Carbondale,Latitude,set,39.40056,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Dooley Creek Farm,Carbondale,Longitude,set,-107.21124,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Thompson House Museum,Carbondale,Latitude,set,39.40056,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Thompson House Museum,Carbondale,Longitude,set,-107.21124,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Uncle Johnnys U-pick,Cedaredge,Latitude,set,38.90165,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Uncle Johnnys U-pick,Cedaredge,Longitude,set,-107.92645,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Keelor Family Ranch,Colorado Springs,Latitude,set,38.83396,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Keelor Family Ranch,Colorado Springs,Longitude,set,-104.82535,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Sunshine Greens Farm,Colorado Springs,Latitude,set,38.83396,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Sunshine Greens Farm,Colorado Springs,Longitude,set,-104.82535,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Living Water Fibers and Alpacas,Craig,Latitude,set,40.51525,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Living Water Fibers and Alpacas,Craig,Longitude,set,-107.54645,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+"The One Acre Farm, LLC",Craig,Latitude,set,40.51525,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+"The One Acre Farm, LLC",Craig,Longitude,set,-107.54645,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Farm-i,Durango,Latitude,set,37.27695,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Farm-i,Durango,Longitude,set,-107.87660,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+RK Creations Farm,Elizabeth,Latitude,set,39.36091,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+RK Creations Farm,Elizabeth,Longitude,set,-104.58950,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Blue Barrel Farm,Fort Collins,Latitude,set,40.58718,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Blue Barrel Farm,Fort Collins,Longitude,set,-105.07701,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Heckman Hollow,Fowler,Latitude,set,38.12723,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Heckman Hollow,Fowler,Longitude,set,-104.02825,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Scarecrow Gardens,Greeley,Latitude,set,40.43388,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Scarecrow Gardens,Greeley,Longitude,set,-104.75485,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Forty Mile Feed,Kiowa,Latitude,set,39.34672,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Forty Mile Feed,Kiowa,Longitude,set,-104.46361,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Becker's Produce,Merino,Latitude,set,40.48248,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Becker's Produce,Merino,Longitude,set,-103.35133,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Indian Ridge Farm,Norwood,Latitude,set,38.13055,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Indian Ridge Farm,Norwood,Longitude,set,-108.29230,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Bennett Rock Ranch,Nunn,Latitude,set,40.72520,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Bennett Rock Ranch,Nunn,Longitude,set,-104.77718,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Zephyros Farm and Garden,Paonia,Latitude,set,38.86875,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Zephyros Farm and Garden,Paonia,Longitude,set,-107.60190,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Pollywog Station Lavender Farm,Parker,Latitude,set,39.49453,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Pollywog Station Lavender Farm,Parker,Longitude,set,-104.75013,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Virgil Produce,Pueblo,Latitude,set,38.26328,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Virgil Produce,Pueblo,Longitude,set,-104.42302,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Mills Bros Farm Market,Rocky Ford,Latitude,set,38.05379,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Mills Bros Farm Market,Rocky Ford,Longitude,set,-103.71899,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Gina Marcell,Salida,Latitude,set,38.51755,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Gina Marcell,Salida,Longitude,set,-106.05590,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Highwater Farm,Silt,Latitude,set,39.54859,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Highwater Farm,Silt,Longitude,set,-107.65617,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
+Snowden Meats,Toponas,Latitude,set,40.06267,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Snowden Meats,Toponas,Longitude,set,-106.80750,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
