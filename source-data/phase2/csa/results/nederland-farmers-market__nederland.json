@@ -1,0 +1,55 @@
+{
+ "id": "nederland-farmers-market__nederland",
+ "name": "Nederland Farmers Market",
+ "offers_csa": true,
+ "csa_status": "open",
+ "signup_url": "https://www.nederlandfarmersmarket.org/nedcsa",
+ "signup_opens": null,
+ "season_start": "2026-05-10",
+ "season_end": "2026-10-18",
+ "season_year": 2026,
+ "season_precision": "day",
+ "share_types": [
+  "Vegetables",
+  "Fruit",
+  "Eggs",
+  "Dairy",
+  "Meat",
+  "Other"
+ ],
+ "frequency": "Weekly",
+ "price": "$30/week",
+ "snap_accepted": null,
+ "pickup_sites": [
+  {
+   "name": "Nederland Farmers Market",
+   "address": "80 E. Second St, Nederland",
+   "town": "Nederland",
+   "day": "Sun",
+   "time": "10am-1pm",
+   "on_farm": false
+  }
+ ],
+ "delivery": {
+  "offered": null,
+  "kind": null,
+  "radius_miles": null,
+  "zips": [],
+  "towns": [],
+  "fee": null,
+  "details": ""
+ },
+ "evidence": [
+  {
+   "field": "price",
+   "quote_or_summary": "$30 per weekly share",
+   "url": "https://www.nederlandfarmersmarket.org/nedcsa"
+  },
+  {
+   "field": "season_start",
+   "quote_or_summary": "Sundays May 10 through Oct 18 (2026)",
+   "url": "https://www.nederlandfarmersmarket.org/nedcsa"
+  }
+ ],
+ "notes": "Market-run produce CSA from partner farms (Ned CSA), ordering via openfoodnetwork.net/nederland-farmers-market/shop, weekly window Sun-Wed. Add-ons: eggs, honey, dairy, meat, fruit. Page 2026. Season ends 2026-10-18, four days after today, so ordering still open. SNAP not mentioned."
+}

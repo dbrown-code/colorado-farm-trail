@@ -1,0 +1,50 @@
+{
+ "id": "growing-gardens__longmont",
+ "name": "Growing Gardens",
+ "offers_csa": true,
+ "csa_status": "open",
+ "signup_url": "https://growinggardens.org/csa/",
+ "signup_opens": null,
+ "season_start": "2026-10-28",
+ "season_end": "2026-12-16",
+ "season_year": 2026,
+ "season_precision": "day",
+ "share_types": [
+  "Vegetables"
+ ],
+ "frequency": "Weekly",
+ "price": "$450 fall share (or $225 + $225 payment plan)",
+ "snap_accepted": null,
+ "pickup_sites": [
+  {
+   "name": "Boulder Farm",
+   "address": "1630 Hawthorn Avenue, Boulder",
+   "town": "Boulder",
+   "day": "Wed",
+   "time": "3:30-6pm",
+   "on_farm": true
+  }
+ ],
+ "delivery": {
+  "offered": false,
+  "kind": null,
+  "radius_miles": null,
+  "zips": [],
+  "towns": [],
+  "fee": null,
+  "details": "Pickup only"
+ },
+ "evidence": [
+  {
+   "field": "csa_status",
+   "quote_or_summary": "Fall Share: spots available, space limited; Summer share full",
+   "url": "https://growinggardens.org/csa/"
+  },
+  {
+   "field": "season_start",
+   "quote_or_summary": "Fall Oct 28-Dec 16 (year inferred from 2026 summer listing on same page)",
+   "url": "https://growinggardens.org/csa/"
+  }
+ ],
+ "notes": "Page content is 2026. Summer share (Jun 3-Oct 21, 2026) is full; fall year inferred. SNAP/sliding scale not listed for CSA (Longmont farm stand takes SNAP). No Longmont CSA in 2026. Pickup is in Boulder although listed city is Longmont."
+}
