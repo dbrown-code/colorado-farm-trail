@@ -118,9 +118,6 @@ East Denver Food Hub,Montbello,Category,set,Community Food Hub,"Community food-a
 US Potato Board,Denver Tech Center,,remove,,"A trade association, not a place to get food (2026-10-03 category review)",2026-10-03
 "Borden Farms, LLC",Delta,Business Name,set,Pedro's Farm (formerly Borden Farms),Renamed: its site now reads 'Pedro's Farm ... Formerly Borden Farms' (verified 2026-10-03),2026-10-03
 Platte River Fort,Greeley,,remove,,"Now River Fort Ranch, a barn wedding venue (riverfortranch.com); no farm stand, produce or tours described, so not a food stop (reviewed 2026-10-03)",2026-10-03
-Boulder Creek Winery,Boulder,,remove,,"Closed: Yelp 'CLOSED - Updated January 2026', Foursquare 'Now Closed' (closed-org check 2026-10-03)",2026-10-03
-Spotted Horse Barnyard,Elbert,,remove,,Closed: owner confirmed permanent closure (pumpkinpatchesandmore.org closed-farms page) (closed-org check 2026-10-03),2026-10-03
-Freeman Apple Orchard,Lakewood,,remove,,Closed: pickyourown.org lists it permanently closed; domain gone (closed-org check 2026-10-03),2026-10-03
 Lyons Outdoor Market,Lyons,,remove,,"Removed on review: Tripadvisor 'temporarily closed until 10/04/2026', absent from the town's 2026 events, website gone (closed-org check 2026-10-03)",2026-10-03
 Hugs Farm,Walsenburg,,remove,,"Removed on review: visithugsfarm.com now offers mindfulness/animal-therapy services, no food sales (closed-org check 2026-10-03)",2026-10-03
 Morton's Organic Orchards,Palisade,Website,set,https://mortonsorganicorchards.com/,Site moved; 2026 season updates on the new domain (closed-org check 2026-10-03),2026-10-03
@@ -1038,3 +1035,19 @@ Lucky 8 Ranch,Oak Creek,Latitude,set,40.27402,"Street address couldn't be geocod
 Lucky 8 Ranch,Oak Creek,Longitude,set,-106.95764,"Street address couldn't be geocoded (rural road), so pinned at the center of Oak Creek for now (Census gazetteer, 2026-10-08)",2026-10-08
 Grey Hawk Greenhouse and Farm Inc,Wellington,Latitude,set,40.7007,"Street address couldn't be geocoded (rural road), so pinned at the center of Wellington for now (Census gazetteer, 2026-10-08)",2026-10-08
 Grey Hawk Greenhouse and Farm Inc,Wellington,Longitude,set,-105.0057,"Street address couldn't be geocoded (rural road), so pinned at the center of Wellington for now (Census gazetteer, 2026-10-08)",2026-10-08
+Boulder Creek Winery,Boulder,Status,set,Closed,"Closed: Yelp 'CLOSED - Updated January 2026', Foursquare 'Now Closed' (closed-org check 2026-10-03)",2026-10-03
+Spotted Horse Barnyard,Elbert,Status,set,Closed,Closed: owner confirmed permanent closure (pumpkinpatchesandmore.org closed-farms page) (closed-org check 2026-10-03),2026-10-03
+Freeman Apple Orchard,Lakewood,Status,set,Closed,Closed: pickyourown.org lists it permanently closed; domain gone (closed-org check 2026-10-03),2026-10-03
+Thistle Whistle Farm,Hotchkiss,Year Opened,set,2006,Own site: operating since 2006 (checked 2026-10-08),2026-10-08
+Gunnison Gardens,Gunnison,Year Opened,set,2014,MarketSpread profile: established 2014 (checked 2026-10-08),2026-10-08
+Rocking W Cheese,Olathe,Year Opened,set,1965,KVNF/Visit Montrose: family dairy since 1965 (cheese since 2008) (checked 2026-10-08),2026-10-08
+Mountain Bird,Paonia,Year Opened,set,2015,Own site: started 2015 (checked 2026-10-08),2026-10-08
+"Borden Farms, LLC",Delta,Year Opened,set,1996,pedrosfarm.com: farming since 1996 (checked 2026-10-08),2026-10-08
+Homestead Natural Meats,Delta,Year Opened,set,1996,Montrose Business Times / Hotchkiss chamber: founded 1996 (checked 2026-10-08),2026-10-08
+Chamberlain Farms,Delta,Year Opened,set,1978,Facebook and Valley Food Partnership guide: farming since 1978 (checked 2026-10-08),2026-10-08
+Honey Acre Farms,Montrose,Year Opened,set,2006,Valley Food Partnership: roadside stand since 2006 (checked 2026-10-08),2026-10-08
+Grey Owl Garden,Paonia,Year Opened,set,2025,Colorado Secretary of State: LLC formed 2025-05-08 (checked 2026-10-08),2026-10-08
+Flipside Farm,Hotchkiss,Year Opened,set,2012,Mountain Freshies profile: growing since 2012 (checked 2026-10-08),2026-10-08
+Fields to Plate Produce,Durango,Year Opened,set,2013,CCOF/Local Food Marketplace: founded 2013 (checked 2026-10-08),2026-10-08
+First Fruits Organic Farms,Paonia,Year Opened,set,1988,AARP Local / Delta County Tourism: farming since 1988 (checked 2026-10-08),2026-10-08
+Wild Mountain Seeds,Carbondale,Year Opened,set,2013,Founded 2013 per Denver Life Magazine / own history (checked 2026-10-08),2026-10-08

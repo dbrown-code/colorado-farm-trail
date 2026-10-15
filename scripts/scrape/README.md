@@ -189,3 +189,143 @@ other four directories' field names on the first keyed run**.
   products/SNAP for the ~91 USDA-only markets that lack them)
 - ⏳ Operator-site scrape — **Jarman & Co Events** (jarmanandcoevents.com) first;
   yields new markets (Central Park, Riverfront, A Tavola) + first-party season/hours
+
+## Closed businesses stay in the dataset
+
+Closed farms, ranches and businesses are **kept, marked `Closed`**, never deleted, so they
+aren't researched or re-added later. The rule:
+
+- Everything already in the dataset is assumed open until someone finds otherwise.
+- When a business is **removed from a source** (it shows as `removed` in a change report) or
+  research finds it shut, do not delete it. If we are **confident it once operated and has
+  closed** (a closed listing on Yelp/Google, an owner or news notice, a dead domain plus a
+  dissolved registration), mark it Closed and put the evidence and date in `Notes`:
+  - a record that comes from a source: add an `overrides.csv` row, `column = Status`,
+    `mode = set`, `value = Closed`, plus a `Notes` `prepend` row ("Closed. ...");
+  - a business no source carries: add a `curated_records.csv` row with `Status = closed`
+    (with `Category`, `City` and `Address` if known, and the reason in `Notes`).
+- **Only mark a business Closed when it would have qualified** (a farm, ranch, market,
+  grower, local-food maker/shop or restaurant that fits the dataset) **and we know it existed
+  and no longer operates.** A business that never qualified, one that merged into another, or
+  one we only suspect is gone is not "Closed": log it as `skip` / `call` in `curated_records.csv`.
+- If we only *can't find* it (no web presence, unclear), that is not closed: keep it as
+  `skip` / `call` in `curated_records.csv` (research log), not `closed`.
+- Closed records appear in `source-data/phase2/co_farmers_markets_all_raw.csv` (column
+  `Status`: `Open` or `Closed`) and are left out of the My Maps file, so they never reach the
+  map. Use `overrides.csv` `remove` only for records that were never real businesses of this
+  kind (a trade association, an unrelated service).
+- Check a name against the raw CSV `Status` column before researching or adding it.
+
+## Transaction ledger and Year Opened
+
+`source-data/phase2/ledger/transactions.csv` is an append-only log of what happened to each
+record: `baseline` (already present when the ledger started, 2026-10-05), `added`, `changed`
+(field, old, new), `closed`, `reopened`, `removed`. Every `build.py` run appends the events
+since the previous build (`state.json` holds that previous state) and nothing when nothing
+changed. Never edit past rows. Set `LEDGER_BATCH="label"` to tag a run.
+
+- First entry / full history of a business: `python scripts/scrape/ledger.py history "Name" [city]`
+  (it also prints years in business when `Year Opened` is known).
+- `Year Opened` (raw CSV column) is the year the business started, from its own site
+  ("since 2006"), a registry formation date, or a profile. Set it with an `overrides.csv` row
+  (`column = Year Opened`, `mode = set`) and put the evidence in `note`. First-seen date is a
+  different thing: it is the ledger's `added` row, and `baseline` rows only mean "on or before".
+- A rename shows up as `removed` + `added`, because records are keyed by name + town.
+
+## Run — find, approve, push
+
+Getting new data and building are separate steps, and a build repeats no work.
+
+**1. Find: check the sources for new data (on purpose, not per build)**
+
+```bash
+python scripts/scrape/refresh_sources.py                 # all network sources
+python scripts/scrape/refresh_sources.py cfma usda_api   # just these
+```
+
+Sources: `colorado_proud`, `cfma`, `chaffee_provides`, `usda_api`, `usda_datashare`.
+Each writes:
+- a snapshot, `source-data/phase2/snapshots/<source>.json`: the parsed records the build reads
+- a change report, `snapshots/changes/<source>.csv`: what's **new / removed / changed**,
+  field by field, versus the previous snapshot
+
+A source that fails keeps its previous snapshot. Chaffee Provides reads its page cache
+(`.cache/chaffee_provides/`, reused for 7 days). `CHAFFEE_REFRESH=1` forces the polite
+~8-minute recrawl. After a parser change, re-run the refresh for that source.
+
+**2. Approve:** review the change reports. Committing the snapshots (a PR) is the
+approval. Hand research goes in `curated_records.csv` (new businesses) and corrections
+go in `overrides.csv` (existing ones). Both are reviewed the same way.
+
+**3. Push: build offline**
+
+```bash
+python scripts/scrape/build.py
+```
+
+The build reads only local files: snapshots, enrichment results, curated records,
+dedup decisions and overrides. It merges, fills blanks and writes the outputs.
+Geocode and county answers, including misses, are remembered in `.cache/geocode.json`.
+Only records that are new or still blank get a lookup; misses are retried after 30
+days, and `GEOCODE_REFRESH=1` redoes everything. A rebuild with nothing new takes
+about a second.
+
+The USDA key lives in **`.env` at the repo root** (git-ignored; never commit it),
+as `USDA_API_KEY=...`. Only `refresh_sources.py usda_api` needs it. With a key, the
+keyed pull runs and data_share is kept as a gap-filler, because the two views don't
+fully overlap (observed 2026-07: CO csa had 21 keyed vs 41 opt-in data_share listings).
+
+Outputs (Phase 2, isolated; live Phase 1 Farm Fresh CSV untouched):
+- `data-compiled/phase2/co_farmers_markets_all_mymaps.csv` — 22 columns, My Maps import-ready
+- `source-data/phase2/co_farmers_markets_all_raw.csv` — same + `Source` / `Geo Source` /
+  `Possible Dup Of` / `Provenance`
+
+Website / Facebook / Instagram values from every source (including enrichment and
+maintainer overrides) go through `normalize.clean_url` / `facebook_url` /
+`instagram_url`, the same rules the live build uses (`build_map_data.py` imports them):
+bare or `@` handles become profile URLs, scheme-less URLs get `https://`, and page names
+with spaces are dropped rather than written as broken links.
+
+Enrichment inputs read from `source-data/phase2/enrichment/results/*.json` (folded at
+top priority). Latest full build: **149 markets** + official-site enrichment across 109
+of them (`  Possible Dup Of` flags name-stem pairs for human review; nothing is
+auto-merged).
+
+## Test
+
+```bash
+python -m pytest scripts/tests -q
+```
+
+Offline: source parsers run against saved fixtures in `scripts/tests/fixtures/`;
+geocoding is not called. Covers normalize helpers, USDA mapping (real + synthetic
+fixtures), and dedup/merge (overlap collapse, gap-fill provenance, coordinate-proximity
+merge).
+
+## Getting the USDA key
+
+Self-service form: <https://www.usdalocalfoodportal.com/fe/fregisterpublicapi/>
+(email + a math captcha; key is emailed back). Endpoints — one per directory:
+`/api/{farmersmarket|onfarmmarket|csa|foodhub|agritourism}/?apikey=KEY&...`.
+For each directory the fetcher first tries the documented single-request
+`state=co` query, then falls back to the x/y/radius grid sweep. Field names are
+verified against a live keyed `farmersmarket` sample; the records carry a
+`directory_type` discriminator, so one parser serves all five — **spot-check the
+other four directories' field names on the first keyed run**.
+
+## Status
+
+- ✅ Colorado Proud + USDA (keyless + keyed, schema verified) fetchers
+- ✅ USDA scan widened to **all five portal directories** (on-farm markets, CSAs,
+  food hubs, agritourism → `Category`); `Source ID`/`Source Updated` captured per
+  record as the change-detection hook for the update engine
+  (design: [`../../docs/UPDATE_ENGINE.md`](../../docs/UPDATE_ENGINE.md))
+- ✅ merge/dedup, possible-dup review flag, geocode + county backfill, writer, 19 tests
+- ✅ statewide build producing 139 markets
+- ✅ Chaffee Provides source (category crawl + provider-map coords, exclusions/overrides
+  files, offline tests). Link check + presence research for all 42 providers on
+  2026-10-03 → 6 held for review with the Chaffee Provides team
+- ⏳ CFMA map scrape, curated guides, per-site enrichment (to fill hours/season/
+  products/SNAP for the ~91 USDA-only markets that lack them)
+- ⏳ Operator-site scrape — **Jarman & Co Events** (jarmanandcoevents.com) first;
+  yields new markets (Central Park, Riverfront, A Tavola) + first-party season/hours
