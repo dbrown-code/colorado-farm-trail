@@ -23,3 +23,19 @@ def test_no_label_is_left_without_a_group():
         cats = [r["Category"] for r in csv.DictReader(fh)]
     assert categories.unknown_labels(cats) == []      # add new labels to GROUPS/BADGES
     assert "Other" not in {c.strip() for cat in cats for c in cat.split(",")}
+
+
+def test_food_system_labels_roll_up_without_moving_existing_ones():
+    # Added 2026-10-14: nurseries, seed companies, processors, distributors, vendors ...
+    assert categories.groups_for("Flower Farm") == ["plants"]
+    assert categories.groups_for("Plant Nursery, Seed Company") == ["plants"]
+    assert categories.groups_for("Food Processor") == ["makers"]
+    assert categories.groups_for("Distributor / Aggregator") == ["wholesale"]
+    assert categories.groups_for("Brewery / Distillery") == ["drinks"]
+    assert categories.groups_for("Ag Input Supplier") == ["inputs"]
+    assert categories.groups_for("Market Vendor") == ["vendors"]
+    assert categories.groups_for("Cottage Food, Food Truck") == ["shops", "dining"]
+    # existing mappings are unchanged
+    assert categories.groups_for("Food Maker") == ["shops"]
+    assert categories.groups_for("Garden Center / Greenhouse") == ["garden"]
+    assert categories.groups_for("Meat Producer & Packer") == ["farms"]

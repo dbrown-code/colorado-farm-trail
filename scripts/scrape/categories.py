@@ -22,10 +22,18 @@ GROUPS = [
     ("upick", "U-Pick", "🍓", {"U-Pick"}),
     ("garden", "Garden Centers", "🌱", {"Garden Center / Greenhouse"}),
     ("wineries", "Wineries", "🍷", {"Winery"}),
-    ("shops", "Shops & Grocers", "🛒", {"Grocery Store", "Farm Store", "Bakery", "Food Maker"}),
-    ("dining", "Restaurants & Caterers", "🍽️", {"Restaurant", "Caterer"}),
-    ("wholesale", "Wholesale & Food Hubs", "📦", {"Wholesale Grower", "Food Hub"}),
+    ("shops", "Shops & Grocers", "🛒", {"Grocery Store", "Farm Store", "Bakery", "Food Maker", "Cottage Food"}),
+    ("dining", "Restaurants & Caterers", "🍽️", {"Restaurant", "Caterer", "Food Truck", "Cafe / Coffee Shop"}),
+    ("wholesale", "Wholesale & Food Hubs", "📦", {"Wholesale Grower", "Food Hub", "Distributor / Aggregator"}),
     ("assistance", "Food Assistance", "🥫", {"Food Bank", "Community Food Hub", "Organization"}),
+    # Added 2026-10-14 (food-system scope: any food production, making, distribution or
+    # consumption can be in the data set). The public map only shows groups index.html
+    # styles; these are available to the data set and to other applications now.
+    ("plants", "Flowers, Plants & Seeds", "🌸", {"Flower Farm", "Plant Nursery", "Seed Company"}),
+    ("makers", "Food Processors", "🏭", {"Food Processor"}),
+    ("drinks", "Breweries & Distilleries", "🍺", {"Brewery / Distillery"}),
+    ("inputs", "Farm Inputs & Services", "🌾", {"Ag Input Supplier"}),
+    ("vendors", "Market Vendors", "🧑‍🌾", {"Market Vendor"}),
 ]
 
 # Labels shown as a badge on the listing, not as a filter chip.
