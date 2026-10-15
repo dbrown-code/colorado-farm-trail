@@ -140,18 +140,24 @@ def write(markets: list) -> None:
             w.writerow(m.to_mymaps_row())
 
     extra = ["Source", "Geo Source", "Possible Dup Of", "Provenance",
-             "Source ID", "Source Updated"]
+             "Source ID", "Source Updated",
+             "Public Listing", "Hide Address", "Local Sales Channel", "Sales Channels", "Sales Locations"]
     with open(raw, "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=COLUMNS + extra)
         w.writeheader()
         for m in markets:
-            row = m.to_mymaps_row()
+            row = m.to_mymaps_row(public=False)   # the raw data keeps hidden addresses
             row["Source"] = m.source
             row["Geo Source"] = m.geo_source
             row["Possible Dup Of"] = m.dup_hint
             row["Provenance"] = json.dumps(m.provenance, separators=(",", ":"))
             row["Source ID"] = m.source_id
             row["Source Updated"] = m.source_updated
+            row["Public Listing"] = m.public_listing
+            row["Hide Address"] = m.hide_address
+            row["Local Sales Channel"] = m.local_sales_channel
+            row["Sales Channels"] = m.sales_channels
+            row["Sales Locations"] = m.sales_locations
             w.writerow(row)
 
     print(f"Wrote {len(markets)} markets:\n  {mymaps}\n  {raw}")
