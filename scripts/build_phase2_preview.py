@@ -2,7 +2,7 @@
 """Build a local preview of the live map running on Phase 2 data (cutover step 2 draft).
 
 Writes preview/phase2/ (git-ignored): a copy of index.html + about.html whose type
-chips are the map filter groups from scripts/scrape/categories.py, and a
+chips are the map filter groups from scripts/appdata/categories.py, and a
 data/markets.json built from the Phase 2 output by the live builder
 (build_map_data.py), so links and fields are normalized exactly as on the site.
 
@@ -26,10 +26,10 @@ sys.path.insert(0, str(HERE))
 
 import build_map_data  # noqa: E402
 import market_schedule  # noqa: E402
-from scrape import categories  # noqa: E402
+from appdata import categories  # noqa: E402
 
 OUT_DIR = REPO / "preview" / "phase2"
-PHASE2_CSV = REPO / "data-compiled" / "phase2" / "co_farmers_markets_all_mymaps.csv"
+PHASE2_CSV = REPO / "data" / "foodweb" / "directory.csv"
 
 # Chip colors per group (index.html's pins/chips need a color, emoji and short label).
 STYLE = {
@@ -105,7 +105,7 @@ def build_page(n: int) -> None:
     # Phase 2 pages wait in _phase2/ (GitHub Pages' Jekyll build skips "_" folders,
     # so they can't go live before the cutover). The preview gets them with the banner.
     # Town + ZIP coordinates for the calendar's "near a place" search (build_places.py).
-    places = REPO / "source-data" / "phase2" / "places" / "co_places.json"
+    places = REPO / "data" / "foodweb" / "places.json"
     if places.exists():
         shutil.copy2(places, OUT_DIR / "data" / "places.json")
     for page in sorted((REPO / "_phase2").glob("*.html")):

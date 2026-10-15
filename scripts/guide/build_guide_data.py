@@ -1,6 +1,6 @@
 """Build guide/guide-data.js for the local food guide draft.
 
-Reads the supply-network pilot (source-data/supply-network/{nodes,edges}.csv),
+Reads the supply-network pilot (data/foodweb/supply-network-{nodes,edges}.csv),
 the farm-trail listings (data/markets.json, plus the Phase 2 compiled CSV for
 day-plan stops), events (source-data/events/events.csv) and day plans
 (source-data/guide/plans.json), and writes one JS file the static guide loads. Town coordinates are town centroids, so per-business
@@ -15,11 +15,11 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-NET = ROOT / "source-data" / "supply-network"
+NET = ROOT / "data" / "foodweb"
 OUT = ROOT / "guide" / "guide-data.js"
 EVENTS = ROOT / "source-data" / "events" / "events.csv"
 PLANS = ROOT / "source-data" / "guide" / "plans.json"
-LISTINGS = ROOT / "data-compiled" / "phase2" / "co_farmers_markets_all_mymaps.csv"
+LISTINGS = ROOT / "data" / "foodweb" / "directory.csv"
 
 # Town -> (region, lat, lng). Statewide/unknown entries have no point.
 TOWNS = {
@@ -184,8 +184,8 @@ def load_plans(ids, by_id, events):
 
 
 def main():
-    nodes = list(csv.DictReader(open(NET / "nodes.csv", encoding="utf-8-sig")))
-    edges = list(csv.DictReader(open(NET / "edges.csv", encoding="utf-8-sig")))
+    nodes = list(csv.DictReader(open(NET / "supply-network-nodes.csv", encoding="utf-8-sig")))
+    edges = list(csv.DictReader(open(NET / "supply-network-edges.csv", encoding="utf-8-sig")))
     trail = {m["name"]: m for m in json.load(open(ROOT / "data" / "markets.json", encoding="utf-8"))}
 
     out_nodes, ids, unknown_towns = [], {}, set()

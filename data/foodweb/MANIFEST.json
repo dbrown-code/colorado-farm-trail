@@ -1,0 +1,72 @@
+{
+ "name": "Colorado Open Food Web directory",
+ "version": "v2026.10.1",
+ "format_version": 1,
+ "released": "2026-10-15",
+ "license": "CC BY 4.0",
+ "attribution": "Colorado Open Food Web, https://github.com/open-food-web/colorado-open-food-web",
+ "files": {
+  "directory.csv": {
+   "rows": 1518,
+   "sha256": "21ff8f2e33bd2420e793e13b57330152d56bf4a73b3104e2e4ba31038c171cb8",
+   "columns": [
+    "Business Name",
+    "Category",
+    "Address",
+    "City",
+    "County",
+    "State",
+    "Zip",
+    "Phone",
+    "Call first?",
+    "Website",
+    "Email",
+    "Facebook",
+    "Instagram",
+    "Hours",
+    "Months Open",
+    "Products",
+    "Certified Organic",
+    "SNAP",
+    "ADA Accessible",
+    "Notes",
+    "Where to Get It",
+    "Latitude",
+    "Longitude"
+   ]
+  },
+  "csa.json": {
+   "sha256": "467fb07f7911e5913034e4904c7202fde586db9758bbe6e1dd1f94bda02aa8c0"
+  },
+  "places.json": {
+   "sha256": "1db2c99ceddfac36b08b2f7e80c8563beb79acf04c0bd744af68492c12bccff8"
+  },
+  "supply-network-nodes.csv": {
+   "sha256": "eebe9ea22d1d6d28c36a9868201e0751716aeffdc59d8d1c1375a0d6ac21ec5e"
+  },
+  "supply-network-edges.csv": {
+   "sha256": "4afbd1dd28f6d2ff66c6f74d62f2a6780f2645739019c3dda8f457dfa0705b8f"
+  }
+ },
+ "counts": {
+  "listings": 1518,
+  "with_email": 368,
+  "with_website": 890,
+  "by_source": {
+   "colorado_proud_finder": 900,
+   "usda": 367,
+   "curated": 210,
+   "colorado_proud_farm_fresh": 165,
+   "official-site": 131,
+   "colorado_proud": 48,
+   "cfma": 38,
+   "chaffee_provides": 37
+  }
+ },
+ "rules": [
+  "facts only: no descriptions (the Notes column is empty)",
+  "closed businesses are not included",
+  "hidden addresses are withheld",
+  "an email appears only if the business lists it on its own website or Facebook page"
+ ]
+}
