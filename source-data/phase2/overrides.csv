@@ -191,7 +191,7 @@ Cloud City Conservation Center,Leadville,Business Name,set,Cloud City Farm (Clou
 Eagle Rock Ranch,Fairplay,Hours,set,"Fri, Sat, Sun, Mon: 11:00am - 5:00pm (winter 2026 hours; subject to change)","buyeaglerockbeef.com 'Visit our store' (maintainer screenshot, 2026-10-04)",2026-10-04
 Eagle Rock Ranch,Fairplay,Email,set,erin@eaglerockbeef.com,"buyeaglerockbeef.com 'Visit our store' (maintainer screenshot, 2026-10-04)",2026-10-04
 Eagle Rock Ranch,Fairplay,Notes,prepend,"Ranch store (Eagle Rock Ranch Mercantile) at 530 Front Street, Fairplay: winter 2026 hours Friday-Monday 11am-5pm, subject to change; beef also ships via buyeaglerockbeef.com.","buyeaglerockbeef.com 'Visit our store' (maintainer screenshot, 2026-10-04)",2026-10-04
-Jumpin' Good Goat Dairy,Buena Vista,,remove,,"Closed: Buck & Bloom Cheese Co. now operates the same facility (31700 US-24). Held out of the Chaffee Provides source on 2026-10-03; Colorado Proud's member directory still lists it",2026-10-04
+Jumpin' Good Goat Dairy,Buena Vista,,remove,,Closed: Buck & Bloom Cheese Co. now operates the same facility (31700 US-24). Held out of the Chaffee Provides source on 2026-10-03; Colorado Proud's member directory still lists it,2026-10-04
 Colorado Farm to Table,Salida,Address,set,7750 County Road 150,"Farm location as Chaffee Provides lists it; the official-site check had recorded the mailing PO Box 826, which isn't a place to visit",2026-10-04
 Vail Farmers' Market,Vail,Hours,set,Sun: 9:30am - 3:00pm (Jun 14 - Oct 4); Thu: 1:00pm - 5:30pm (Jun 18 - Sep 17),"Season dates from vailfarmersmarket.com vendor pages: Sunday market June 14 - October 4, 2026; Thursday Meadow Market June 18 - September 17, 2026 (its blurb says Sept 4; the event listing says Sept 17) (checked 2026-10-04)",2026-10-04
 High On The Hill Farm,Cañon City,Notes,set,"High On the Hill Farm is a small, all natural fruit, vegetable, culinary herb and medicinal herb farm and is the home of The Anāhata Yoga & Meditation Center.  We offer wellness counseling utilizing mindful presence, a fresh, high nutrient density plant based diet and Ashtanga Yoga.  see our website for more info",Source text lost a character (garbled 'Anāhata'); same text with the yoga studio's name restored,2026-10-04
@@ -258,3 +258,89 @@ Highwater Farm,Silt,Latitude,set,39.54859,"Geocode gap fill 2026-10-14: town cen
 Highwater Farm,Silt,Longitude,set,-107.65617,"Geocode gap fill 2026-10-14: town centroid (OpenStreetMap); approximate, farm is somewhere in or near this town.",2026-10-14
 Snowden Meats,Toponas,Latitude,set,40.06267,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
 Snowden Meats,Toponas,Longitude,set,-106.80750,"Geocode gap fill 2026-10-14: road-level match (OpenStreetMap); approximate, not the exact farm gate.",2026-10-14
+Chaffee Community Resource Center,,Website,clear,,Link check 2026-10-14: HTTP 404 for http://salidacaringsharing.org/the-resource-center/; link removed.,2026-10-14
+Metro Denver Farmers' Market-Littleton,Littleton,Website,clear,,Link check 2026-10-14: HTTP 404 for http://www.denverfarmersmarket.com/index.html; link removed.,2026-10-14
+HooRayRay's,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for http://www.hoorayrays.com; link removed.,2026-10-14
+Koha Farm,Elizabeth,Website,clear,,Link check 2026-10-14: gaierror for http://www.kohafarm.com; link removed.,2026-10-14
+Mycenae,Lafayette,Website,clear,,Link check 2026-10-14: gaierror for http://www.mycenae-mushrooms.com; link removed.,2026-10-14
+Pauline's Bonafide Baking,Colorado Springs,Website,clear,,Link check 2026-10-14: gaierror for http://www.paulinesbonafidebaking.com; link removed.,2026-10-14
+"5280 Mushrooms, LLC",Thornton,Website,clear,,Link check 2026-10-14: gaierror for https://5280mushroomsandmicrogreens.com; link removed.,2026-10-14
+Autumn's Harvest Granola,Windsor,Website,clear,,Link check 2026-10-14: gaierror for https://autumnsharvestgranola.com; link removed.,2026-10-14
+Petals & Papers,La Veta,Website,clear,,Link check 2026-10-14: SSLError for https://CabinPressStudio.com; link removed.,2026-10-14
+"Commando Dave's BBQ Seasonings, LLC",Monument,Website,clear,,Link check 2026-10-14: gaierror for https://commandodaves.com; link removed.,2026-10-14
+ConsciouSweets,Lafayette,Website,clear,,Link check 2026-10-14: HTTP 404 for https://ConsciouSweets.com; link removed.,2026-10-14
+Crafton's Summit Sourdough,Peyton,Website,clear,,Link check 2026-10-14: SSLError for https://CraftonsSummitSourdough.com; link removed.,2026-10-14
+Creole Roots Catering and Food Truck,,Website,clear,,Link check 2026-10-14: HTTP 404 for https://creolerootscatering.com; link removed.,2026-10-14
+Dove Creek Care and Share Food Pantry,Dove Creek,Website,clear,,Link check 2026-10-14: gaierror for https://dccareandshare.org/; link removed.,2026-10-14
+Dianes's Delights,Castle Pines,Website,clear,,Link check 2026-10-14: HTTP 404 for https://diane-delights-7525.myshopify.com; link removed.,2026-10-14
+Early Morning Orchard,Palisade,Website,clear,,Link check 2026-10-14: HTTP 404 for https://earlymorningorchard.com/; link removed.,2026-10-14
+Ent Wise Farm,Fort Collins,Website,clear,,Link check 2026-10-14: HTTP 404 for https://entwisefarm.com; link removed.,2026-10-14
+"SoulSmile Health & Wellness, LLC",Pueblo,Website,clear,,Link check 2026-10-14: HTTP 410 for https://go.thryv.com/site/SoulSmileHealthWellness/livesite; link removed.,2026-10-14
+Golden Hollow Farms,Berthoud,Website,clear,,Link check 2026-10-14: gaierror for https://goldenhollowfarms.com; link removed.,2026-10-14
+Gordon Creek Farm LLC,Livermore,Website,clear,,Link check 2026-10-14: HTTP 404 for https://gordoncreekfarm.com; link removed.,2026-10-14
+Enjoy Halal,Aurora,Website,clear,,Link check 2026-10-14: SSLError for https://halolfoods.com/; link removed.,2026-10-14
+Herrera's Homestead,Aurora,Website,clear,,Link check 2026-10-14: gaierror for https://herrerashomestead.com/; link removed.,2026-10-14
+Hogback Farm,Silt,Website,clear,,Link check 2026-10-14: gaierror for https://HogbackFarm.com; link removed.,2026-10-14
+Honey Moon Mesa,Hotchkiss,Website,clear,,Link check 2026-10-14: gaierror for https://honeymoonmesa.com; link removed.,2026-10-14
+Howling Woods Fungi,Denver,Website,clear,,Link check 2026-10-14: gaierror for https://Howlingwoodsfungi.com; link removed.,2026-10-14
+Mile-Hi Provisions,Aurora,Website,clear,,Link check 2026-10-14: HTTP 404 for https://milehiprovisions.com/; link removed.,2026-10-14
+Moriah Ranch,Coalmont,Website,clear,,Link check 2026-10-14: gaierror for https://moriahgrassfed.com; link removed.,2026-10-14
+Mountain Jam,Avon,Website,clear,,Link check 2026-10-14: gaierror for https://mountainjamllc.shop/; link removed.,2026-10-14
+Nothing But,Colorado Springs,Website,clear,,Link check 2026-10-14: HTTP 404 for https://nothingbut.site; link removed.,2026-10-14
+The People’s Pickles,Denver,Website,clear,,Link check 2026-10-14: gaierror for https://peoplespickles.com; link removed.,2026-10-14
+Psycho Pig BBQ,Cedaredge,Website,clear,,Link check 2026-10-14: HTTP 404 for https://psychopigbbq.com; link removed.,2026-10-14
+Red Fox Cellars,Palisade,Website,clear,,Link check 2026-10-14: HTTP 404 for https://RedFoxCellars.com; link removed.,2026-10-14
+"Sage Mountain Freeze-Dry, LLC",Aurora,Website,clear,,Link check 2026-10-14: SSLError for https://sagemountainfreezedry.com; link removed.,2026-10-14
+Tinctures and Tallow,Firestone,Website,clear,,Link check 2026-10-14: HTTP 404 for https://shoptincturesandtallow.com; link removed.,2026-10-14
+Sunflower Cottage Foods,Boulder,Website,clear,,Link check 2026-10-14: SSLError for https://sunflowercottagefoods.com; link removed.,2026-10-14
+The Sleepy Turtle Coffee Co,Colorado Springs,Website,clear,,Link check 2026-10-14: gaierror for https://thesleepyturtlecoffeeco.com; link removed.,2026-10-14
+Truth Microfarms,,Website,clear,,Link check 2026-10-14: gaierror for https://truthmicrofarms.com; link removed.,2026-10-14
+Attimo Wine,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.attimowine.com/; link removed.,2026-10-14
+Brody’s Fluffy Butt Hut,,Website,clear,,Link check 2026-10-14: gaierror for https://www.brodysfluffybutthut.com; link removed.,2026-10-14
+Clayton Cares Market,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.claytonearlylearning.org/our-schools-programs/health-and-wellness/claytoncaresmarket.html; link removed.,2026-10-14
+Cooper's Coffee,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.cooperscoffeedenver.com; link removed.,2026-10-14
+Curry Culture,Colorado Springs,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.curryculturecos.com/; link removed.,2026-10-14
+The Outback Cookin' Company,Haxtun,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.dosmokehouse.com/theoutbackcookincompany; link removed.,2026-10-14
+Fagerberg Produce,Eaton,Website,clear,,Link check 2026-10-14: gaierror for https://www.fagerbergproduce.com; link removed.,2026-10-14
+Good Steward Farms,Peyton,Website,clear,,Link check 2026-10-14: SSLError for https://www.goodstewardfarms.net/; link removed.,2026-10-14
+Greens Wizard Microgreens,Craig,Website,clear,,Link check 2026-10-14: gaierror for https://www.greenswizardmicrogreens.com/; link removed.,2026-10-14
+Wildboydfarm,Matheson,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.investingwithyou.org; link removed.,2026-10-14
+Johnny's Green Gardens,Colorado Springs,Website,clear,,Link check 2026-10-14: gaierror for https://www.johnnysgreengardens.com/; link removed.,2026-10-14
+Lollipop & Co.,Westcliffe,Website,clear,,Link check 2026-10-14: SSLError for https://www.lollipopnco.com/; link removed.,2026-10-14
+Mile High Mycro Farms,Commerce City,Website,clear,,Link check 2026-10-14: gaierror for https://www.milehighmycrofarms.co; link removed.,2026-10-14
+Milk and Honey Coffee,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.milknhoneycoffeeco.com; link removed.,2026-10-14
+NoCo Gluten Free Bakeshop,Wellington,Website,clear,,Link check 2026-10-14: gaierror for https://www.nocogfbakeshop.com/; link removed.,2026-10-14
+Orchard & Poppy,Morrison,Website,clear,,Link check 2026-10-14: gaierror for https://www.orchardandpoppy.com; link removed.,2026-10-14
+Queen City Greens,Denver,Website,clear,,Link check 2026-10-14: gaierror for https://www.qcgreensdenver.com; link removed.,2026-10-14
+Spring Flour Garden Co.,Denver,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.springflourgardenco.com; link removed.,2026-10-14
+SugarBee Cookie Company,Loveland,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.sugarbeecookiecompany.com; link removed.,2026-10-14
+Sunshine Green's Farm,Colorado Springs,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.sunshinegreensfarm.com/; link removed.,2026-10-14
+PTOM'S FOOD & DRAINAmerican  at The Ptarmigan Inn,Steamboat Springs,Website,clear,,Link check 2026-10-14: gaierror for https://www.theptarmigan.com/; link removed.,2026-10-14
+T-Lazy-7 Ranch,Aspen,Website,clear,,Link check 2026-10-14: SSLError for https://www.tlazy7.com; link removed.,2026-10-14
+Vines 79 Wine Barn,Palisade,Website,clear,,Link check 2026-10-14: SSLError for https://www.vines79.com; link removed.,2026-10-14
+Vino Salida Wine Cellars,Poncha Springs,Website,clear,,Link check 2026-10-14: HTTP 404 for https://www.vinosalida.com; link removed.,2026-10-14
+Wild Thymes Farm,Bayfield,Website,clear,,Link check 2026-10-14: gaierror for https://www.wildthymesfarm.com/; link removed.,2026-10-14
+Llama Trekking by Lookin Up Outfitters,Westcliffe,Website,clear,,Link check 2026-10-14: redirects to all-casinohere.com (unrelated or parked site); link removed.,2026-10-14
+Ancestral Skincare Co,Bennett,Website,clear,,Link check 2026-10-14: redirects to ishimon.com (unrelated or parked site); link removed.,2026-10-14
+POP Colorado,Fort Collins,Website,clear,,Link check 2026-10-14: page says 'domain is for sale' (unrelated or parked site); link removed.,2026-10-14
+"Altius Farms, Inc.",Denver,Website,clear,,Link check 2026-10-14: redirects to jewishfamilyservice.org (unrelated or parked site); link removed.,2026-10-14
+Elevation Meat Market,Westcliffe,Website,clear,,Link check 2026-10-14: redirects to edu.it (unrelated or parked site); link removed.,2026-10-14
+Sacred Song Beef,Mancos,Website,clear,,Link check 2026-10-14: redirects to livedrawhngkong.com (unrelated or parked site); link removed.,2026-10-14
+Southwest Farm Fresh Harvest Shares,Mancos,Website,clear,,Link check 2026-10-14: redirects to usdaindonesia.org (unrelated or parked site); link removed.,2026-10-14
+Phun Bar,Wheat Ridge,Instagram,set,https://www.instagram.com/phunbar/,Link check 2026-10-14: Doubled scheme removed.,2026-10-14
+Podunk's Ranch,Cortez,Instagram,set,https://www.instagram.com/podunksranch/,Link check 2026-10-14: Doubled scheme removed.,2026-10-14
+RESTORATION VINEYARDS,PALISADE,Instagram,set,https://instagram.com/restorationvineyards,Link check 2026-10-14: Malformed 'instagram/handle' made a full URL.,2026-10-14
+B sweet cupcakes,Loveland,Facebook,set,https://facebook.com/BSweetCupcakes,Link check 2026-10-14: Handle @BSweetCupcakes made a URL.,2026-10-14
+Old Elm Farm,Boulder,Instagram,set,https://instagram.com/oldelmfarm,Link check 2026-10-14: Handle @oldelmfarm made a URL.,2026-10-14
+Anderson Farms,Erie,Instagram,set,https://instagram.com/andersonfarmsco,Link check 2026-10-14: Bare handle made a URL (matches their Facebook page name). Unverified: Instagram blocks checks.,2026-10-14
+"Julie Comer, LLC Dan AnyTime Pancakes",Fort Collins,Facebook,set,https://facebook.com/anytimepancakes,Link check 2026-10-14: Bare handle made a URL. Unverified: Facebook blocks checks.,2026-10-14
+"Julie Comer, LLC Dan AnyTime Pancakes",Fort Collins,Instagram,set,https://instagram.com/anytimepancakes,Link check 2026-10-14: Bare handle made a URL. Unverified: Instagram blocks checks.,2026-10-14
+"Free Range Beehives, LLC",Denver,Facebook,set,https://facebook.com/freerangebeehives,Link check 2026-10-14: Bare handle made a URL. Unverified: Facebook blocks checks.,2026-10-14
+"Free Range Beehives, LLC",Denver,Instagram,set,https://instagram.com/freerangebeehives,Link check 2026-10-14: Bare handle made a URL. Unverified: Instagram blocks checks.,2026-10-14
+Queen Bee Bakery,Walsenburg,Facebook,set,https://facebook.com/queenbeebakeryco,Link check 2026-10-14: Bare handle made a URL. Unverified: Facebook blocks checks.,2026-10-14
+Queen Bee Bakery,Walsenburg,Instagram,set,https://instagram.com/queenbeebakeryco,Link check 2026-10-14: Bare handle made a URL. Unverified: Instagram blocks checks.,2026-10-14
+Pauline's Bonafide Baking,Colorado Springs,Facebook,clear,,"Link check 2026-10-14: Cell held the business website (dead), not a Facebook page.",2026-10-14
+Pauline's Bonafide Baking,Colorado Springs,Instagram,clear,,"Link check 2026-10-14: Cell held the business website (dead), not an Instagram page.",2026-10-14
+Smith Family Orchards,Palisade,Facebook,clear,,"Link check 2026-10-14: Cell held a dead domain (smithfamilyorchardsstore.com), not a Facebook page.",2026-10-14
+B sweet cupcakes,Loveland,Instagram,clear,,Link check 2026-10-14: Handle '@b.swwet.cupcakes' looks like a typo and can't be verified; cleared.,2026-10-14
+Marigold Livestock Co.,Basalt,Instagram,clear,,Link check 2026-10-14: Handle '@marigoldlivestock.com' looks like a website pasted as a handle and can't be verified; cleared.,2026-10-14
