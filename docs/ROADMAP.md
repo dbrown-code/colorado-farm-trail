@@ -47,7 +47,7 @@ Full spec in [`gamification.md`](gamification.md).
       (preferred: `coloradofarmtrail@gmail.com`).
 - [ ] Logo / wordmark.
 - [ ] Instagram + Facebook accounts.
-- [ ] Refresh the dataset mid-season (`python scripts/fetch_farm_data.py`).
+- [ ] Refresh the dataset mid-season: the Food Web refreshes its sources on a schedule; pin a newer release (`python scripts/update_foodweb.py <version>`, see docs/FOOD_WEB.md).
 - [ ] **Automated weekly link check** — low-weight GitHub Action that runs
       `scripts/check_links.py` (report-only) and opens/updates a single issue when
       links go dead or move. Design + limitations in [`LINK_CHECKING.md`](LINK_CHECKING.md).

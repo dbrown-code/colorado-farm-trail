@@ -1,8 +1,5 @@
-"""Offline tests for the shared Website / Facebook / Instagram URL normalization.
-
-The rules live in scrape/normalize.py and are used by both the Phase 2 scraper
-sources and the live Phase 1 build (build_map_data.py). Run:
-python -m pytest scripts/tests -q
+"""Offline tests for the Website / Facebook / Instagram URL cleanup the map build applies
+(scripts/appdata/urls.py, used by build_map_data.py). Run: python -m pytest scripts/tests -q
 """
 import os
 import sys
@@ -12,8 +9,7 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import build_map_data
-from scrape import normalize as N
-from scrape.sources import enrichment
+from appdata import urls as U
 
 
 @pytest.mark.parametrize("raw,exp", [
@@ -28,87 +24,37 @@ from scrape.sources import enrichment
     ("instagram.com/x", "https://instagram.com/x"),
     # already a URL; uppercase scheme is lowercased, host case kept
     ("https://www.instagram.com/x/", "https://www.instagram.com/x/"),
-    ("Http://Instagram.com/X", "http://Instagram.com/X"),
-    # page names / junk -> ''
-    ("Durango Farmers Market", ""),
-    ("Bob's & Co", ""),
-    ("linktr.ee/foo", ""),
-    ("", ""),
-    (None, ""),
+    ("HTTPS://Instagram.com/x", "https://Instagram.com/x"),
+    # business names and empties are not links
+    ("Foodshed Alliance", None),
+    ("", None),
+    (None, None),
 ])
-def test_instagram_url(raw, exp):
-    assert N.instagram_url(raw) == exp
+def test_instagram_social_url(raw, exp):
+    assert U.social_url(raw, U.INSTAGRAM_BASE) == exp
 
 
 @pytest.mark.parametrize("raw,exp", [
-    ("www.facebook.com/townofmountainvillage", "https://www.facebook.com/townofmountainvillage"),
-    ("m.facebook.com/x", "https://m.facebook.com/x"),
-    ("fb.com/x", "https://fb.com/x"),
-    ("@gunnisonfm", "https://facebook.com/gunnisonfm"),
-    ("gunnisonfm", "https://facebook.com/gunnisonfm"),
-    ("HTTPS://www.facebook.com/x", "https://www.facebook.com/x"),
-    ("Gunnison Farmers Market", ""),
-    ("Foodshed Alliance", ""),
-    ("@a, @b", "https://facebook.com/a"),
-    ("  ", ""),
+    ("facebook.com/growers", "https://facebook.com/growers"),
+    ("@growers", "https://facebook.com/growers"),
+    ("Foodshed Alliance", None),
 ])
-def test_facebook_url(raw, exp):
-    assert N.facebook_url(raw) == exp
+def test_facebook_social_url(raw, exp):
+    assert U.social_url(raw, U.FACEBOOK_BASE) == exp
 
 
 @pytest.mark.parametrize("raw,exp", [
-    ("littletonq.com", "https://littletonq.com"),
-    ("www.salidacattlecompany.com", "https://www.salidacattlecompany.com"),
-    ("https://x.com", "https://x.com"),
-    ("Http://www.salidacattlecompany.com", "http://www.salidacattlecompany.com"),
-    ("HTTPS://Example.com/Path", "https://Example.com/Path"),
-    # multi-value cells keep the first usable URL
-    ("www.yakmeat.us  , www.yaksale.com", "https://www.yakmeat.us"),
-    ("Yak Ranch; yaksale.com", "https://yaksale.com"),
-    ("https://x.com/?a=1,2", "https://x.com/?a=1,2"),
-    ("Salida Cattle Company", ""),
-    ("Some Name.com", ""),
-    ("N/A", ""),
-    ("none", ""),
-    ("-", ""),
-    ("", ""),
+    ("bergharvest.com", "https://bergharvest.com"),
+    ("http://farm.example/x", "http://farm.example/x"),
+    ("HTTPS://Farm.com", "https://Farm.com"),
+    ("none", None),
+    ("A Farm", None),
+    ("", None),
 ])
-def test_clean_url(raw, exp):
-    assert N.clean_url(raw) == exp
+def test_website_url(raw, exp):
+    assert U.website_url(raw) == exp
 
 
-def test_phase1_build_uses_shared_helpers():
-    # One copy of the rules: the live build imports them rather than redefining them.
-    from appdata import urls as U
+def test_map_build_uses_the_shared_helpers():
     assert build_map_data.website_url is U.website_url
     assert build_map_data.social_url is U.social_url
-    assert build_map_data.social_url("Foodshed Alliance", U.FACEBOOK_BASE) is None
-    # the app's copy of the rules matches the pipeline's (until the pipeline copy is retired)
-    for v in ("bergharvest.com", "none", "A Farm", "HTTPS://Foo.com", "@x", "www.instagram.com/y"):
-        assert U.website_url(v) == N.website_url(v)
-        assert U.social_url(v, U.INSTAGRAM_BASE) == N.social_url(v, N.INSTAGRAM_BASE)
-
-
-def test_enrichment_normalizes_social_fields():
-    results = [{"id": "t1", "fields": {
-        "Website": "Http://www.salidacattlecompany.com",
-        "Facebook": {"value": "Foodshed Alliance"},
-        "Instagram": {"value": "@durangofarmers"},
-    }}]
-    targets = {"t1": {"name": "Test Market", "city": "Durango"}}
-    m = enrichment.parse(results, targets)[0]
-    assert m.website == "http://www.salidacattlecompany.com"
-    assert m.facebook == ""
-    assert m.instagram == "https://instagram.com/durangofarmers"
-
-
-def test_fix_mojibake_repairs_cp1252_misreads():
-    from scrape.normalize import fix_mojibake
-    assert fix_mojibake("Salidaâ€™s Farmers Market") == "Salida’s Farmers Market"
-    assert fix_mojibake("CaÃ±on City") == "Cañon City"
-    assert fix_mojibake("Mayâ€“October") == "May–October"
-    assert fix_mojibake("A familyâ€‘run ranch") == "A family‑run ranch"
-    assert fix_mojibake("white, rosÃ©, and sparkling") == "white, rosé, and sparkling"
-    # Clean text, including real accents and dashes, is left alone.
-    for s in ("Cañon City", "Farmers' Market", "May–October", "Café", ""):
-        assert fix_mojibake(s) == s

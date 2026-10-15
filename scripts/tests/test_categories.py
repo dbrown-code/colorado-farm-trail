@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from scrape import categories
+from appdata import categories
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -18,7 +18,7 @@ def test_groups_for_multi_label_and_badges():
 
 
 def test_no_label_is_left_without_a_group():
-    path = os.path.join(REPO, "source-data", "phase2", "co_farmers_markets_all_raw.csv")
+    path = os.path.join(REPO, "data", "foodweb", "directory.csv")
     with open(path, encoding="utf-8-sig") as fh:
         cats = [r["Category"] for r in csv.DictReader(fh)]
     assert categories.unknown_labels(cats) == []      # add new labels to GROUPS/BADGES
@@ -48,16 +48,3 @@ def test_public_groups_exclude_the_newer_groups_and_cover_the_original_ones():
     assert {k for k, *_ in categories.GROUPS} >= categories.PUBLIC_GROUPS
     for newer in ("plants", "makers", "drinks", "inputs", "vendors"):
         assert newer not in categories.PUBLIC_GROUPS
-
-
-def test_hide_address_keeps_raw_but_blanks_public_row():
-    from scrape.schema import Market
-    m = Market(business_name="Test Farm", category="On-Farm / Ranch Sales", address="1 Farm Rd",
-               city="Town", zip="80000", latitude=39.0, longitude=-105.0, hide_address="yes")
-    pub = m.to_mymaps_row()
-    assert pub["Address"] == "" and pub["Latitude"] == "" and pub["Longitude"] == "" and pub["Zip"] == ""
-    assert pub["City"] == "Town"
-    raw = m.to_mymaps_row(public=False)
-    assert raw["Address"] == "1 Farm Rd" and raw["Latitude"] == 39.0
-    shown = Market(business_name="Shop", address="2 Main St", latitude=39.1, longitude=-105.1)
-    assert shown.to_mymaps_row()["Address"] == "2 Main St"

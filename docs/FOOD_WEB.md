@@ -46,7 +46,18 @@ Send them to the Food Web, not here: [open an issue](https://github.com/open-foo
 Emails appear only when the business lists the address on its own website or Facebook page, so a few listings
 show fewer contact details than before.
 
-## The old pipeline
+## Where the old pipeline went
 
-`scripts/scrape/`, `source-data/`, `data-compiled/` and the data scripts are the legacy copy of what now lives
-in the Food Web. They stay for reference until a follow-up change removes them.
+The pipeline, the research and the data documents moved to the Food Web on 2026-10-15 and were removed from
+this repo (git history keeps them). In the Food Web:
+
+| Was here | Now |
+|---|---|
+| `scripts/scrape/` (sources, merge, build) | `scripts/scrape/` in the Food Web, run on a schedule |
+| `source-data/`, `data-compiled/` | `inputs/`, `snapshots/` and `data/` in the Food Web; raw third-party material in a private sources repo |
+| `docs/DATA.md`, `DEDUP_STANDARDS.md`, `UPDATE_ENGINE.md`, `LINK_CHECKING.md`, `CATEGORIES.md`, `ENTITY_REGISTRY.md` | `docs/` in the Food Web |
+| `docs/BUSINESS_SUBMISSIONS.md` and the form script | `docs/FEEDBACK.md` and `intake/` in the Food Web |
+| `docs/CORE_PROJECT_CHARTER.md`, `FOOD_WEB_SCHEMA.md` | `docs/CHARTER.md`, `docs/SCHEMA.md` in the Food Web |
+
+The Gunnison Valley prototype (`gunnison-valley/`, `scripts/gunnison_site/`) still reads the raw build; run it with
+`--inputs` pointing at a checkout of the Food Web's private sources repo.

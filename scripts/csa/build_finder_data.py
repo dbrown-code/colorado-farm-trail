@@ -1,6 +1,6 @@
 """Build the CSA finder's data file: csa/csa-data.js
 
-Inputs : data/foodweb/csa.json            (confirmed CSAs, from build_csa.py)
+Inputs : data/foodweb/csa.json            (confirmed CSAs, from the Food Web release)
          data/foodweb/directory.csv  (town + ZIP centers)
 Output : csa/csa-data.js  ->  window.CSA_DATA = {built, csas[], towns{}, zips{}}
 
