@@ -36,6 +36,7 @@ https://www.google.com/maps/d/viewer?mid=15fDxNgQN1yxO7xc2FR27Kq6NND3GjvE
 | [`branding.md`](branding.md) | Brand identity, the naming exercise, decisions, and open naming/domain TODOs |
 | [`gamification.md`](gamification.md) | The Farm Trail Passport concept — check-ins, leaderboards, badges, phased build |
 | [`ANALYTICS.md`](ANALYTICS.md) | GA4 setup, the `open_map` event, Bitly + UTM tracking plan, metrics to watch |
+| [`FOOD_WEB.md`](FOOD_WEB.md) | **Where the data comes from now**: the Colorado Open Food Web, the pinned release the app reads, and how to update it. Data work moved there on 2026-10-15 |
 | [`DATA.md`](DATA.md) | Where the data came from (ArcGIS), the endpoint, fields, and how to refresh it |
 | [`UPDATE_ENGINE.md`](UPDATE_ENGINE.md) | Design for the auto-update engine — scheduled multi-source re-scans, diffs, auto-apply rules, review queue (Phase 2) |
 | [`MARKETING.md`](MARKETING.md) | Ready-to-post share copy for every channel + the launch checklist |

@@ -8,7 +8,7 @@
  "files": {
   "directory.csv": {
    "rows": 1518,
-   "sha256": "21ff8f2e33bd2420e793e13b57330152d56bf4a73b3104e2e4ba31038c171cb8",
+   "sha256": "8448ba03966de823fb4d0545701def721c9b722e03b2a980b282f2d81d6dc323",
    "columns": [
     "Business Name",
     "Category",
@@ -36,16 +36,16 @@
    ]
   },
   "csa.json": {
-   "sha256": "467fb07f7911e5913034e4904c7202fde586db9758bbe6e1dd1f94bda02aa8c0"
+   "sha256": "c21f7ecf99fb6d8d5c8e06ff215f2e0760f8e1333674b4545e632576ffec4e83"
   },
   "places.json": {
-   "sha256": "1db2c99ceddfac36b08b2f7e80c8563beb79acf04c0bd744af68492c12bccff8"
+   "sha256": "f0f18f548540a2f633b9aab227b349769ef9e7ffa418e28158e7334eebe7715c"
   },
   "supply-network-nodes.csv": {
-   "sha256": "eebe9ea22d1d6d28c36a9868201e0751716aeffdc59d8d1c1375a0d6ac21ec5e"
+   "sha256": "c536e397f51a42acba96eb3305dff24564627bdb1e6bf75797e40a8f3757c959"
   },
   "supply-network-edges.csv": {
-   "sha256": "4afbd1dd28f6d2ff66c6f74d62f2a6780f2645739019c3dda8f457dfa0705b8f"
+   "sha256": "6e12e2927be376e5ea7bc4dbae0e6a18a70b366c1074445d7f42f258e73e5b62"
   }
  },
  "counts": {
