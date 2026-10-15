@@ -77,6 +77,21 @@ class Market:
     source_id: str = ""              # stable id at the source (e.g. USDA listing_id)
     source_updated: str = ""         # source's own last-updated stamp (change detection)
 
+    # Display flags (raw export only). The data set holds more than a public app may show:
+    # `public_listing` = it advertises a sales channel (yes/no, "" = not yet judged);
+    # `local_sales_channel` = it has a local channel such as a farm stand, market, CSA pickup,
+    # local delivery or local retail (yes/no/unknown); `sales_channels` = semicolon list from
+    # on_farm, farm_stand, farmers_market, csa, delivery, wholesale, retail_partners, online;
+    # `sales_locations` = where it sells (markets, pickup points), free text, semicolon-separated.
+    public_listing: str = ""
+    # "yes" = keep the full address and coordinates in the raw data, but leave them out of the
+    # public output (the My Maps CSV, so no map pin). For farms whose sales happen elsewhere
+    # (markets, delivery, CSA pickup, wholesale) and that have not published a visiting address.
+    hide_address: str = ""
+    local_sales_channel: str = ""
+    sales_channels: str = ""
+    sales_locations: str = ""
+
     def set(self, attr: str, value, source: str) -> None:
         """Set a field only if `value` is non-empty and the field is currently
         empty; record provenance. Enforces the explicit-only confidence rule and
@@ -105,7 +120,14 @@ class Market:
                 merged.append(label)
         self.category = CATEGORY_SEP.join(merged)
 
-    def to_mymaps_row(self) -> dict:
+    def to_mymaps_row(self, public: bool = True) -> dict:
+        row = self._row()
+        if public and self.hide_address == "yes":
+            for col in ("Address", "Zip", "Latitude", "Longitude"):
+                row[col] = ""
+        return row
+
+    def _row(self) -> dict:
         return {
             "Business Name": self.business_name,
             "Category": self.category,

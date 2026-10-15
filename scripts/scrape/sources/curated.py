@@ -5,9 +5,14 @@ the 2026 Salida Farmers Market list that were missing from our data). The resear
 lives in the CSV itself: one row per business, a `Status` decision, and a
 `Source URLs` cell backing the stated values.
 
-Only rows with Status `add` become records. `market-only` (real, but sells only at
-markets/online, so there's no place of its own to pin) and `skip` rows stay in the CSV
-as the research record, so the same name isn't researched twice.
+Only rows with Status `add` become records. `skip` rows stay in the CSV as the research
+record, so the same name isn't researched twice. (`market-only` was the older status for real
+businesses that sell only at markets or online; they are now `add` records with no address, so
+they are in the data set but have no pin of their own.)
+
+Optional display columns: `Public Listing`, `Local Sales Channel`, `Sales Channels`,
+`Sales Locations`, and `Hide Address` (yes = the raw data keeps the address and coordinates,
+the public My Maps output leaves them out). See docs/CATEGORIES.md, "Data versus display".
 
 Confidence rule as everywhere: a cell is filled only when a source states it.
 Latitude/Longitude are optional; empty -> `build.fill_geography` geocodes the address.
@@ -51,6 +56,11 @@ def parse(rows: List[dict]) -> List[Market]:
             m.latitude, m.longitude, m.geo_source = lat, lng, "source"
         except ValueError:
             pass
+        m.public_listing = (r.get("Public Listing") or "").strip().lower()
+        m.hide_address = (r.get("Hide Address") or "").strip().lower()
+        m.local_sales_channel = (r.get("Local Sales Channel") or "").strip().lower()
+        m.sales_channels = (r.get("Sales Channels") or "").strip()
+        m.sales_locations = (r.get("Sales Locations") or "").strip()
         m.source_id = (r.get("Source URLs") or "").split(";")[0].strip()
         m.source_updated = (r.get("Researched") or "").strip()
         out.append(m)

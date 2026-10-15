@@ -96,6 +96,10 @@ def main():
         if not name or not category:
             skipped.append((i, name, "missing name/category"))
             continue
+        # Only groups the public map has enabled are shown (data vs display).
+        if not any(g in cat_groups.PUBLIC_GROUPS for g in groups):
+            skipped.append((i, name, "no group enabled for the public map"))
+            continue
 
         markets.append(
             {

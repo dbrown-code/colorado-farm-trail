@@ -36,6 +36,12 @@ GROUPS = [
     ("vendors", "Market Vendors", "🧑‍🌾", {"Market Vendor"}),
 ]
 
+# Groups the public map shows today (the ones index.html styles). Groups added later
+# (plants, makers, drinks, inputs, vendors) are in the data set but stay off the public map
+# until the maintainer enables them: what the data holds and what an app shows are separate.
+PUBLIC_GROUPS = {"markets", "farms", "agritourism", "csa", "stands", "upick", "garden",
+                 "wineries", "shops", "dining", "wholesale", "assistance"}
+
 # Labels shown as a badge on the listing, not as a filter chip.
 BADGES = {"Sells to Schools": "🏫 Sells to schools"}
 

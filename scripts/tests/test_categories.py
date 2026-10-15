@@ -39,3 +39,25 @@ def test_food_system_labels_roll_up_without_moving_existing_ones():
     assert categories.groups_for("Food Maker") == ["shops"]
     assert categories.groups_for("Garden Center / Greenhouse") == ["garden"]
     assert categories.groups_for("Meat Producer & Packer") == ["farms"]
+
+
+def test_public_groups_exclude_the_newer_groups_and_cover_the_original_ones():
+    original = {"markets", "farms", "agritourism", "csa", "stands", "upick", "garden",
+                "wineries", "shops", "dining", "wholesale", "assistance"}
+    assert categories.PUBLIC_GROUPS == original
+    assert {k for k, *_ in categories.GROUPS} >= categories.PUBLIC_GROUPS
+    for newer in ("plants", "makers", "drinks", "inputs", "vendors"):
+        assert newer not in categories.PUBLIC_GROUPS
+
+
+def test_hide_address_keeps_raw_but_blanks_public_row():
+    from scrape.schema import Market
+    m = Market(business_name="Test Farm", category="On-Farm / Ranch Sales", address="1 Farm Rd",
+               city="Town", zip="80000", latitude=39.0, longitude=-105.0, hide_address="yes")
+    pub = m.to_mymaps_row()
+    assert pub["Address"] == "" and pub["Latitude"] == "" and pub["Longitude"] == "" and pub["Zip"] == ""
+    assert pub["City"] == "Town"
+    raw = m.to_mymaps_row(public=False)
+    assert raw["Address"] == "1 Farm Rd" and raw["Latitude"] == 39.0
+    shown = Market(business_name="Shop", address="2 Main St", latitude=39.1, longitude=-105.1)
+    assert shown.to_mymaps_row()["Address"] == "2 Main St"

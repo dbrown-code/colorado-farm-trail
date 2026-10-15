@@ -52,3 +52,20 @@ The data set may hold every location; applications filter. A public map shows on
 places that advertise a sales channel. New labels are in the data but a group only appears
 on the live map once `index.html` styles it (unstyled groups are skipped), so adding a
 category never changes the public map by itself.
+
+### Display flags (raw export)
+Carried on curated records and written to `co_farmers_markets_all_raw.csv` only (the My Maps CSV
+keeps its 23 columns):
+
+| Column | Values | Meaning |
+|---|---|---|
+| Public Listing | yes / no / unknown | The business advertises a sales channel, so a public app may show it |
+| Local Sales Channel | yes / no / unknown | It has a local channel (farm stand, market, CSA pickup, local delivery, local retail). Online-only national sellers are `no` |
+| Sales Channels | list | `on_farm`, `farm_stand`, `farmers_market`, `csa`, `delivery`, `wholesale`, `retail_partners`, `online` |
+| Sales Locations | text | Where it sells: markets, pickup points |
+| Hide Address | yes / blank | Keep the full address and coordinates in the raw data; omit them from the public output (no map pin) |
+
+`scripts/scrape/categories.py` also lists `PUBLIC_GROUPS`: the filter groups the public map
+shows. Records whose only groups are newer ones (flowers, plants and seeds; processors;
+breweries and distilleries; farm inputs; market vendors) are in the data but not on the public
+map until the maintainer enables the group.
