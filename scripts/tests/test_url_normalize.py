@@ -79,9 +79,14 @@ def test_clean_url(raw, exp):
 
 def test_phase1_build_uses_shared_helpers():
     # One copy of the rules: the live build imports them rather than redefining them.
-    assert build_map_data.website_url is N.website_url
-    assert build_map_data.social_url is N.social_url
-    assert build_map_data.social_url("Foodshed Alliance", N.FACEBOOK_BASE) is None
+    from appdata import urls as U
+    assert build_map_data.website_url is U.website_url
+    assert build_map_data.social_url is U.social_url
+    assert build_map_data.social_url("Foodshed Alliance", U.FACEBOOK_BASE) is None
+    # the app's copy of the rules matches the pipeline's (until the pipeline copy is retired)
+    for v in ("bergharvest.com", "none", "A Farm", "HTTPS://Foo.com", "@x", "www.instagram.com/y"):
+        assert U.website_url(v) == N.website_url(v)
+        assert U.social_url(v, U.INSTAGRAM_BASE) == N.social_url(v, N.INSTAGRAM_BASE)
 
 
 def test_enrichment_normalizes_social_fields():

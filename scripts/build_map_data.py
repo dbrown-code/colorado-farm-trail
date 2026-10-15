@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Build data/markets.json for the live map (index.html).
 
-Reads the Phase 2 combined directory (data-compiled/phase2/co_farmers_markets_all_mymaps.csv:
-Colorado Proud Farm Fresh + member directory, CFMA, USDA, Chaffee Provides, curated research,
-official-site checks, with reviewed dedup decisions and overrides applied) and emits a
-compact, browser-ready JSON array. Each listing's precise data labels roll up into the map's
-filter groups (scripts/scrape/categories.py).
+Reads the pinned Colorado Open Food Web release (data/foodweb/directory.csv; see
+scripts/update_foodweb.py) and emits a compact, browser-ready JSON array. The Food Web builds
+and maintains the data; this app only reads a pinned release of it. Each listing's precise data
+labels roll up into the map's filter groups (scripts/appdata/categories.py). Listing descriptions
+are not part of the release, so the app keeps its own (data/overlay/notes.csv), keyed by name and town.
 The CSVs contain multi-line quoted fields (long Notes/Products), so the browser
 must NOT parse CSV directly -- this pre-generates clean JSON instead.
 
@@ -20,15 +20,15 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-# URL normalization is shared with the Phase 2 scraper (one copy, same rules).
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from scrape.normalize import social_url, website_url  # noqa: E402
-from scrape import categories as cat_groups  # noqa: E402
+from appdata.urls import social_url, website_url  # noqa: E402
+from appdata import categories as cat_groups  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
-# Phase 2 cutover (2026-10-04): the map reads the combined dataset. The old Phase 1 file
-# (farm_fresh_directory_mymaps.csv) is now one of its inputs (sources/farm_fresh.py).
-SRC = REPO / "data-compiled" / "phase2" / "co_farmers_markets_all_mymaps.csv"
+# The map reads a pinned release of the Colorado Open Food Web (scripts/update_foodweb.py).
+SRC = REPO / "data" / "foodweb" / "directory.csv"
+# The app's own listing descriptions (the Food Web release carries facts only).
+NOTES = REPO / "data" / "overlay" / "notes.csv"
 GROUP_LABEL = {key: label for key, label, _, _ in cat_groups.GROUPS}
 OUT = REPO / "data" / "markets.json"
 
@@ -63,9 +63,18 @@ def split_list(value):
     return [part.strip() for part in _lf(value).split(",") if part.strip()]
 
 
+def load_notes():
+    """(name, city) -> description, from the app's own overlay."""
+    if not NOTES.exists():
+        return {}
+    with NOTES.open(encoding="utf-8-sig", newline="") as fh:
+        return {(r["name"].strip().lower(), r["city"].strip().lower()): r["notes"] for r in csv.DictReader(fh)}
+
+
 def main():
     if not SRC.exists():
-        sys.exit(f"ERROR: source CSV not found: {SRC}")
+        sys.exit(f"ERROR: Food Web release not found: {SRC} (run scripts/update_foodweb.py)")
+    notes = load_notes()
 
     with SRC.open(encoding="utf-8-sig", newline="") as fh:
         rows = list(csv.DictReader(fh))
@@ -123,7 +132,7 @@ def main():
                 "organic": yes(row.get("Certified Organic")),
                 "snap": yes(row.get("SNAP")),
                 "ada": yes(row.get("ADA Accessible")),
-                "notes": clean(row.get("Notes")),
+                "notes": clean(row.get("Notes")) or clean(notes.get(((name or "").lower(), (row.get("City") or "").strip().lower()))),
                 # Stores/markets/restaurants carrying a wholesale grower's products.
                 # Semicolon-separated, since entries can contain commas.
                 "whereToGet": [p.strip() for p in (clean(row.get("Where to Get It")) or "").split(";")

@@ -1,7 +1,7 @@
 """Build the CSA finder's data file: csa/csa-data.js
 
-Inputs : data-compiled/phase2/csa.json            (confirmed CSAs, from build_csa.py)
-         data-compiled/phase2/co_farmers_markets_all_mymaps.csv  (town + ZIP centers)
+Inputs : data/foodweb/csa.json            (confirmed CSAs, from build_csa.py)
+         data/foodweb/directory.csv  (town + ZIP centers)
 Output : csa/csa-data.js  ->  window.CSA_DATA = {built, csas[], towns{}, zips{}}
 
 Every pickup site gets coordinates, tagged with how precise they are:
@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from scripts.scrape import geocode as gc  # noqa: E402
+from scripts.appdata import geocode as gc  # noqa: E402
 
 CACHE = ROOT / ".cache/csa_geocode.json"
 OUT = ROOT / "csa/csa-data.js"
@@ -35,7 +35,7 @@ def load_cache():
 
 def centers():
     towns, zips = defaultdict(list), defaultdict(list)
-    path = ROOT / "data-compiled/phase2/co_farmers_markets_all_mymaps.csv"
+    path = ROOT / "data/foodweb/directory.csv"
     for r in csv.DictReader(open(path, encoding="utf-8-sig")):
         try:
             lat, lon = float(r["Latitude"]), float(r["Longitude"])
@@ -63,7 +63,7 @@ def main():
     cache = load_cache()
     towns, zips = centers()
     csas, stats = [], defaultdict(int)
-    for r in json.loads((ROOT / "data-compiled/phase2/csa.json").read_text(encoding="utf-8")):
+    for r in json.loads((ROOT / "data/foodweb/csa.json").read_text(encoding="utf-8")):
         lat = float(r["lat"]) if r.get("lat") else None
         lon = float(r["lon"]) if r.get("lon") else None
         if lat is None and r.get("address"):
