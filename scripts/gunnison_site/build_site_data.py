@@ -31,7 +31,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "scripts"))
-from scrape.normalize import name_key  # noqa: E402
+from appdata.names import name_key  # noqa: E402
 from build_map_data import social_url, website_url  # noqa: E402
 
 _args = sys.argv[1:]

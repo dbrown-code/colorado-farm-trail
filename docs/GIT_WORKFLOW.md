@@ -79,9 +79,8 @@ files are committed with LF. No action needed unless we add a `.gitattributes`.
 
 ## Known repo debt (do not silently "fix" in unrelated PRs)
 
-- A batch of `data-compiled/**` files are tracked in history but **absent from disk**,
+- (Historical) A batch of `data-compiled/**` files were tracked in history but absent from disk; that folder was removed on 2026-10-15,
   so they perpetually show as deleted in `git status`. Whether these enrichment
   artifacts should be tracked or `.gitignore`d is a **maintainer decision** — handle it
   in its own dedicated `chore/` PR, never as a side effect.
-- Untracked in the working tree: `Farm Fresh Map/`, `PHASE2.md`, `data-compiled/phase2/`,
-  `source-data/phase2/`, `og-image.png`. Leave these alone until asked.
+- Untracked in the working tree: `Farm Fresh Map/`, `og-image.png`. Leave these alone until asked.
