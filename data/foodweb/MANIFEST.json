@@ -1,14 +1,14 @@
 {
  "name": "Colorado Open Food Web directory",
- "version": "v2026.10.5",
+ "version": "v2026.10.7",
  "format_version": 1,
  "released": "2026-10-16",
  "license": "CC BY 4.0",
  "attribution": "Colorado Open Food Web, https://github.com/open-food-web/colorado-open-food-web",
  "files": {
   "directory.csv": {
-   "rows": 1522,
-   "sha256": "ed7e934093e4a9eb61a368391384288c07fb396172080b31a05e529d6cd1ea71",
+   "rows": 1520,
+   "sha256": "b8561039b6a4aa72b495e9cac201a651d120b3015e1b6fde91fd073cec031205",
    "columns": [
     "Business Name",
     "Category",
@@ -45,20 +45,23 @@
    "sha256": "c536e397f51a42acba96eb3305dff24564627bdb1e6bf75797e40a8f3757c959"
   },
   "supply-network-edges.csv": {
-   "sha256": "0c8c8055928241262428d6177a79499af795f80d8f3cd1d48bcaaf2c6619d3df"
+   "sha256": "d75b1be8ee4fe61b00c52348f49b289e112a01aaa21f3dc65a9ca6048a23a4dd"
   },
   "tables.zip": {
-   "sha256": "72e0ca439073c86f4d27832795a914af7cf2dee1d9ed754315dee166a327963b"
+   "sha256": "91aaeb8ac9622183ff208b40d591c650c3f11e034ef45be7b70ee5b474757651"
+  },
+  "open-food-web.json": {
+   "sha256": "d51241223df82da5823f5fbd0f1794334add1bf98eb53d0cfcc0ab9dad6dffb2"
   }
  },
  "counts": {
-  "listings": 1522,
+  "listings": 1520,
   "with_email": 370,
-  "with_website": 896,
+  "with_website": 898,
   "by_source": {
    "colorado_proud_finder": 897,
-   "usda": 366,
-   "curated": 223,
+   "usda": 365,
+   "curated": 222,
    "colorado_proud_farm_fresh": 164,
    "official-site": 128,
    "colorado_proud": 48,

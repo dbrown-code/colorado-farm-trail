@@ -23,6 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from appdata.urls import social_url, website_url  # noqa: E402
 from appdata import categories as cat_groups  # noqa: E402
+from appdata import foodweb_export  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 # The map reads a pinned release of the Colorado Open Food Web (scripts/update_foodweb.py).
@@ -75,6 +76,8 @@ def main():
     if not SRC.exists():
         sys.exit(f"ERROR: Food Web release not found: {SRC} (run scripts/update_foodweb.py)")
     notes = load_notes()
+    export = foodweb_export.Export()
+    joined = 0
 
     with SRC.open(encoding="utf-8-sig", newline="") as fh:
         rows = list(csv.DictReader(fh))
@@ -110,8 +113,12 @@ def main():
             skipped.append((i, name, "no group enabled for the public map"))
             continue
 
+        rec = export.match(name, clean(row.get("City")), lat, lng)
+        extra = foodweb_export.detail(export, rec) if rec else {}
+        joined += 1 if rec else 0
         markets.append(
             {
+                **extra,
                 "name": name,
                 "category": category,
                 "categories": categories,
@@ -150,6 +157,7 @@ def main():
     # Summary
     print(f"Read {len(rows)} rows from {SRC.relative_to(REPO)}")
     print(f"Wrote {len(markets)} markets -> {OUT.relative_to(REPO)}")
+    print(f"Joined {joined} of {len(markets)} to the Food Web export")
     print(f"Skipped {len(skipped)} rows")
     for line_no, name, reason in skipped:
         print(f"  - line {line_no}: {name or '(no name)'} -> {reason}")
