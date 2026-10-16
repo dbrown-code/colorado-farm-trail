@@ -228,6 +228,13 @@
   .pop a{ color:var(--accent); }
   .pop .dir{ display:inline-flex; align-items:center; gap:6px; margin-top:11px; padding:9px 15px; border-radius:999px;
     background:var(--accent); color:var(--accent-ink); text-decoration:none; font-weight:700; font-size:.88rem; }
+  .pop .visit{ margin:8px 0 4px; padding:7px 10px; border-radius:10px; background:var(--chip); font-size:.84rem; color:var(--ink); }
+  .pop .visit b{ display:block; }
+  .pop .visit ul{ margin:4px 0 0; padding-left:18px; }
+  .pop .visit .note{ margin-top:3px; color:var(--muted); }
+  .pop .visit.no{ background:transparent; border:1px solid var(--line); }
+  .pop .buy{ margin:4px 0; font-size:.84rem; color:var(--muted); }
+  .pop .more{ display:inline-block; margin-top:8px; font-weight:700; font-size:.84rem; }
   .pop .where{ margin:8px 0 2px; font-size:.84rem; color:var(--ink); }
   .pop .where b{ display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
     color:var(--muted); margin-bottom:3px; }
@@ -586,9 +593,21 @@
     if(me) h += '<div class="dist">'+distLabel(miles(me.lat, me.lng, m.lat, m.lng))+' from you</div>';
     var addr = [m.address, m.city].filter(Boolean).join(", ");
     if(addr) h += '<div class="row"><span class="ic">📍</span><span>'+esc(addr)+(m.county?', '+esc(m.county)+' County':'')+'</span></div>';
-    if(m.hours) h += '<div class="row"><span class="ic">🕒</span><span>'+esc(m.hours)+'</span></div>';
+    if(m.hours && !(m.ways && m.ways.some(function(w){ return w.detail; }))) h += '<div class="row"><span class="ic">🕒</span><span>'+esc(m.hours)+'</span></div>';
     if(m.monthsOpen && m.monthsOpen.length) h += '<div class="row"><span class="ic">📅</span><span>'+esc(m.monthsOpen.join(", "))+'</span></div>';
     if(m.phone) h += '<div class="row"><span class="ic">📞</span><a href="tel:'+esc(m.phone.replace(/[^0-9+]/g,""))+'">'+esc(m.phone)+'</a>'+(m.callFirst?' <em>(call first)</em>':'')+'</div>';
+    // Visit policy, from the Food Web: stated visits with their hours, or a plain "not open to drop-ins".
+    if(m.guests === "yes" || m.guests === "appointment"){
+      h += '<div class="visit"><b>'+(m.guests === "yes" ? '✅ Visitors welcome' : '📞 Visits by appointment')+'</b>';
+      if(m.ways && m.ways.length){
+        h += '<ul>'; m.ways.forEach(function(w){ h += '<li>'+esc(w.label)+(w.detail?': '+esc(w.detail):'')+'</li>'; }); h += '</ul>';
+      }
+      if(m.visitNote) h += '<div class="note">'+esc(m.visitNote)+'</div>';
+      h += '</div>';
+    } else if(m.guests === "no"){
+      h += '<div class="visit no"><b>🚫 Not open for drop-in visits</b>'+(m.visitNote?'<div class="note">'+esc(m.visitNote)+'</div>':'')+'</div>';
+    }
+    if(m.channels && m.channels.length) h += '<div class="buy"><b>How to buy:</b> '+esc(m.channels.join(" · "))+'</div>';
     var flags = [];
     if(m.snap) flags.push("SNAP/EBT");
     (m.badges || []).forEach(function(b){ flags.push(b); });
@@ -609,6 +628,7 @@
     if(m.facebook) links.push('<a href="'+esc(m.facebook)+'" target="_blank" rel="noopener">Facebook</a>');
     if(m.instagram) links.push('<a href="'+esc(m.instagram)+'" target="_blank" rel="noopener">Instagram</a>');
     if(links.length) h += '<div class="links">'+links.join("")+'</div>';
+    if(m.slug) h += '<a class="more" href="producer.html?slug='+encodeURIComponent(m.slug)+'">Full details →</a><br>';
     if(!wholesaleOnly) h += '<a class="dir" href="https://www.google.com/maps/dir/?api=1&destination='+m.lat+','+m.lng+'" target="_blank" rel="noopener">🧭 Directions</a>';
     h += '</div>';
     return h;

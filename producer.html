@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listing · Colorado Farm Trail</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8C%BD</text></svg>" />
+<style>
+  :root{
+    --bg:#f7f6f1; --card:#ffffff; --ink:#20301f; --muted:#5c6b57;
+    --accent:#3f7d3a; --accent-ink:#ffffff; --line:#e3e0d5; --chip:#eef2e6; --warn:#8a5a14; --warn-bg:#fbf1dd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141712; --card:#1d221a; --ink:#e9ecdf; --muted:#a6b09b;
+           --accent:#7bb56f; --accent-ink:#0f1410; --line:#2c3327; --chip:#252c1f; --warn:#e8c47c; --warn-bg:#2d2616; }
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        background:var(--bg); color:var(--ink); line-height:1.5; }
+  a{ color:var(--accent); }
+  .wrap{ max-width:760px; margin:0 auto; padding:16px 16px 56px; }
+  .top{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:.9rem; margin-bottom:14px; }
+  h1{ margin:6px 0 4px; font-size:clamp(1.6rem,5vw,2.1rem); letter-spacing:-.02em; line-height:1.15; }
+  h2{ font-size:1.2rem; margin:26px 0 8px; }
+  .muted{ color:var(--muted); } .faint{ color:var(--muted); font-size:.84rem; }
+  .tag{ display:inline-block; font-size:.74rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+        padding:2px 9px; border-radius:999px; background:var(--chip); color:var(--muted); margin-right:6px; }
+  .banner{ margin:16px 0 4px; padding:12px 14px; border-radius:12px; background:var(--chip); }
+  .banner.no{ background:var(--warn-bg); color:var(--warn); }
+  .banner b{ display:block; font-size:1.02rem; }
+  .banner ul{ margin:6px 0 0; padding-left:20px; }
+  ul.ways{ list-style:none; padding:0; margin:0; }
+  ul.ways > li{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin:8px 0; }
+  ul.ways > li > strong{ display:block; }
+  .facts{ display:grid; grid-template-columns:110px 1fr; gap:6px 12px; margin-top:8px; font-size:.95rem; }
+  .facts .k{ color:var(--muted); font-weight:600; }
+  .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; }
+  .btn{ display:inline-block; padding:9px 15px; border-radius:999px; border:1px solid var(--line); text-decoration:none; font-weight:600; font-size:.9rem; }
+  .btn.primary{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ background:var(--chip); border-radius:999px; padding:3px 11px; font-size:.86rem; }
+  @media (max-width:520px){ .facts{ grid-template-columns:1fr; gap:0 } .facts .k{ margin-top:8px } }
+</style>
+</head>
+<body>
+<main class="wrap" id="main"><p class="muted">Loading…</p></main>
+<script>
+(function(){
+  "use strict";
+  var main = document.getElementById("main");
+  var slug = new URLSearchParams(location.search).get("slug");
+  var FW = "https://github.com/open-food-web/colorado-open-food-web";
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function link(url, text){
+    if(!/^https?:\/\//i.test(url || "")) return "";
+    return '<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(text || url.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, ""))+' ↗</a>';
+  }
+  function phone(p){ return p ? '<a href="tel:'+esc(p.replace(/[^0-9+]/g,""))+'">'+esc(p)+'</a>' : ""; }
+  function fmtDate(d){ if(!d) return ""; var t = new Date(d + "T12:00:00"); return isNaN(t) ? d : t.toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"}); }
+  function fact(k, v){ return v ? '<div class="k">'+k+'</div><div>'+v+'</div>' : ""; }
+
+  // Do they want guests? Their own answer wins; otherwise a stated visit (stand, shop, tour...) means yes.
+  function guests(r){
+    var types = (r.visits || []).map(function(v){ return v.type; });
+    if(types.some(function(t){ return t !== "by_appointment"; })) return "yes";
+    if(types.length) return "appointment";
+    if(r.dropin_visits === true) return "yes";
+    if(r.dropin_visits === false) return "no";
+    return null;
+  }
+  function banner(r){
+    var g = guests(r), v = r.visits || [];
+    if(g === "no") return '<div class="banner no" role="note"><b>🚫 Not open for drop-in visits</b>'+(r.visit_note ? esc(r.visit_note) : "Please don't show up unannounced.")+'</div>';
+    if(g !== "yes" && g !== "appointment") return r.call_first ? '<div class="banner" role="note"><b>📞 Call first</b>Check with them before you go.</div>' : "";
+    return '<div class="banner" role="note"><b>'+(g === "yes" ? "✅ Visitors welcome" : "📞 Visits by appointment")+'</b>'
+      + (v.length ? '<ul>'+v.map(function(x){ return '<li>'+esc(x.label)+(x.detail ? ': '+esc(x.detail) : '')+'</li>'; }).join("")+'</ul>' : "")
+      + (r.visit_note ? '<div class="faint" style="margin-top:6px">'+esc(r.visit_note)+'</div>' : "")+'</div>';
+  }
+
+  // "Mon: 8am - 5pm; Tue: 8am - 5pm; ..." -> "Mon-Fri: 8am - 5pm" (runs of days with the same hours).
+  function compactHours(t){
+    var days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], parts = (t || "").split(/;\s*/), rows = [];
+    for(var i = 0; i < parts.length; i++){
+      var m = /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun):\s*(.+)$/.exec(parts[i]);
+      if(!m) return t;
+      rows.push([days.indexOf(m[1]), m[2]]);
+    }
+    var out = [];
+    for(var j = 0; j < rows.length;){
+      var k = j;
+      while(k + 1 < rows.length && rows[k + 1][1] === rows[j][1] && rows[k + 1][0] === rows[k][0] + 1) k++;
+      out.push((k > j ? days[rows[j][0]] + "-" + days[rows[k][0]] : days[rows[j][0]]) + ": " + rows[j][1]);
+      j = k + 1;
+    }
+    return out.join("; ");
+  }
+  function placeLi(p){
+    var role = {home_base:"Farm", farm_stand:"Farm stand", csa_dropoff:"CSA pickup", pickup:"Pickup", market_site:"Market", access_site:"Site", outlet_site:"Shop"}[p.role] || "Place";
+    var hidden = p.precision === "town";
+    var addr = [p.address, p.city].filter(Boolean).join(", ");
+    var dir = p.pin && p.lat != null ? ' · <a href="https://www.google.com/maps/dir/?api=1&destination='+p.lat+','+p.lon+'" target="_blank" rel="noopener">Directions</a>' : "";
+    return '<li><strong>'+esc(p.name || role)+'</strong>'+(p.name ? ' <span class="faint">'+esc(role)+'</span>' : '')+'<div>'
+      + (addr ? esc(addr) : (hidden ? esc((p.city || "Colorado") + " (exact address not shared)") : ""))
+      + (p.hours_text ? '<div class="muted">'+esc(compactHours(p.hours_text))+'</div>' : "")
+      + (p.pin && p.pin_basis === "unconfirmed" ? '<div class="faint">We haven\'t confirmed that they sell here yet.</div>' : "")
+      + (p.confirm_url ? '<div class="faint">'+link(p.confirm_url, "Their page about this")+'</div>' : "")
+      + dir + '</div></li>';
+  }
+  function placesHtml(r){
+    var places = r.locations || (r.location ? [r.location] : []);
+    // A farm home nobody published isn't a place to go: list it only if it has a pin or they welcome drop-ins.
+    places = places.filter(function(p){ return p.role !== "home_base" || p.pin || guests(r) === "yes"; });
+    return places.length ? '<h2>Places to find them</h2><ul class="ways">'+places.map(placeLi).join("")+'</ul>' : "";
+  }
+  function buyHtml(r, vocab){
+    var ch = (r.sales_channels || []).filter(function(c){ return c !== "none"; });
+    if(!ch.length) return "";
+    var note = {csa:"A weekly share of the harvest.", wholesale:"Sells to restaurants and stores.", online:"Order on their website.",
+                retail_partners:"Find their products in local stores.", u_pick:"Pick your own.", delivery:"They deliver.", pickup:"Pick up an order."};
+    return '<h2>How to buy</h2><ul class="ways">'+ch.map(function(c){
+      return '<li><strong>'+esc((vocab.sales_channels || {})[c] || c)+'</strong>'+(note[c] ? '<div class="muted">'+note[c]+'</div>' : "")+'</li>';
+    }).join("")+'</ul>'
+      + (ch.length === 1 && ch[0] === "wholesale" ? '<p class="faint">Wholesale only: not a place to shop.</p>' : "");
+  }
+
+  fetch("data/foodweb/open-food-web.json").then(function(res){ return res.json(); }).then(function(D){
+    var r = null, kind = "";
+    ["producers","outlets","markets","access_points"].some(function(k){
+      r = (D[k] || []).filter(function(x){ return x.slug === slug; })[0]; kind = k; return !!r; });
+    if(!r){ main.innerHTML = '<p>We couldn\'t find that listing. <a href="index.html">Back to the map →</a></p>'; return; }
+    var vocab = D.vocab || {};
+    document.title = r.name + " · Colorado Farm Trail";
+    var kindLabel = kind === "producers" ? ({farm:"Farm", ranch:"Ranch", orchard:"Orchard", maker:"Food maker", winery:"Winery", bakery:"Bakery", agritourism:"Agritourism", education:"Farm education"}[r.kind] || "Producer") : kind === "markets" ? "Farmers market" : kind === "outlets" ? "Shop or restaurant" : "Food access";
+    var loc = (r.locations || [r.location]).filter(Boolean)[0] || {};
+    var counties = vocab.counties || {};
+    var where = [loc.city, counties[loc.county_fips] ? counties[loc.county_fips] + " County" : ""].filter(Boolean).join(", ");
+    var products = (r.products || []);
+    var hoursText = r.hours_text || (typeof r.hours === "string" ? r.hours : "");
+    var facts = fact("Phone", phone(r.phone) + (r.call_first ? ' <em>(call first)</em>' : ""))
+      + fact("Email", r.email ? '<a href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>' : "")
+      + fact("Website", link(r.website))
+      + fact("Social", [r.facebook && link(r.facebook, "Facebook"), r.instagram && link(r.instagram, "Instagram")].filter(Boolean).join(" · "))
+      + fact("Hours", hoursText && !(r.visits || []).some(function(v){ return v.detail; }) ? esc(compactHours(hoursText)) : "")
+      + fact("Season", r.months_open && r.months_open.length ? esc(r.months_open.length === 12 ? "Year-round" : r.months_open.join(", ")) : "")
+      + fact("Also", [r.accepts_snap && "Accepts SNAP", r.certified_organic && "Certified organic", r.ada_accessible && "ADA accessible"].filter(Boolean).join(" · "));
+    var sells = (r.sells_at || []).filter(function(s){ return s.name; });
+    var confirmed = (r.confirmed_by || []).map(function(c){
+      return esc((c.fields || []).join(", "))+' confirmed by '+(c.url ? link(c.url, c.by) : esc(c.by))+(c.date ? ', '+esc(fmtDate(c.date)) : "");
+    });
+    var sources = (r.sources || []).map(function(s){ return s.url ? link(s.url, s.label) : esc(s.label); });
+    main.innerHTML =
+      '<div class="top"><a href="index.html">← Colorado Farm Trail map</a><a href="index.html" onclick="history.length>1&&(history.back(),event.preventDefault())">Back</a></div>'
+      + '<h1>'+esc(r.name)+'</h1><div><span class="tag">'+esc(kindLabel)+'</span>'+(where ? '<span class="muted">'+esc(where)+'</span>' : "")+'</div>'
+      + (r.last_verified ? '<div class="faint" style="margin-top:6px">Checked '+esc(fmtDate(r.last_verified))+'</div>' : "")
+      + banner(r) + buyHtml(r, vocab) + placesHtml(r)
+      + (sells.length ? '<h2>Farmers markets</h2><ul class="ways">'+sells.map(function(s){ return '<li><strong>'+esc(s.name)+'</strong>'+(s.season_label ? '<div class="muted">'+esc(s.season_label)+'</div>' : "")+(s.source_url ? '<div class="faint">'+link(s.source_url, "Vendor list")+'</div>' : "")+'</li>'; }).join("")+'</ul>' : "")
+      + (products.length ? '<h2>What they offer</h2><div class="chips">'+products.map(function(p){ return '<span class="chip">'+esc(p)+'</span>'; }).join("")+'</div>' : "")
+      + (facts ? '<h2>Contact</h2><div class="facts">'+facts+'</div>' : "")
+      + (confirmed.length || sources.length ? '<h2>Where this came from</h2>'+(confirmed.length ? '<p class="faint">'+confirmed.join("<br>")+'</p>' : "")+(sources.length ? '<p class="faint">Sources: '+sources.join(" · ")+'</p>' : "") : "")
+      + '<div class="btns"><a class="btn primary" href="index.html">See the map</a>'
+      + '<a class="btn" href="'+FW+'/issues/new?title='+encodeURIComponent("Update: "+r.name+" ("+r.id+")")+'" target="_blank" rel="noopener">Suggest an update</a></div>'
+      + '<p class="faint" style="margin-top:20px">Data: <a href="'+FW+'" target="_blank" rel="noopener">Colorado Open Food Web</a>, CC BY 4.0.</p>';
+  }).catch(function(e){ main.innerHTML = '<p>Could not load this listing ('+esc(e.message)+'). <a href="index.html">Back to the map →</a></p>'; });
+})();
+</script>
+</body>
+</html>
